@@ -11,6 +11,7 @@ CC = 		cc
 
 SRCS =\
 builtin_exit.c \
+ft_strtok.c \
 main.c
 
 OBJS := 	$(SRCS:%.c=$(OBJ_DIR)%.o)
