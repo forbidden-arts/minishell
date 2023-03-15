@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/15 16:33:29 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/03/15 16:36:30 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ BOOL	exec_builtin(char *cmd, char **argv)
 		builtin_exit(argv);
 	else if (ft_strncmp("pwd", cmd, 4) == 0)
 		builtin_pwd(argv);
+	else if (ft_strncmp("env", cmd, 4) == 0)
+		builtin_env(argv);
 	else
 		return (FALSE);
 	return (TRUE);
