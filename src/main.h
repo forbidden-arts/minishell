@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:17 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/15 16:59:50 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:09:55 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ typedef struct s_line
 t_line	g_line;
 
 BOOL	exec_builtin(char *cmd, char **argv);
-void	free_line(t_line *line);
+void	free_line(void);
 
 #endif
