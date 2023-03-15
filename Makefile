@@ -10,9 +10,7 @@ LDFLAGS =	-Wall -Wextra -Werror $I -Llibft -lft -lreadline
 CC = 		cc
 
 SRCS =\
-# Start here
-
-# End Here
+builtin_exit.c \
 main.c
 
 OBJS := 	$(SRCS:%.c=$(OBJ_DIR)%.o)
