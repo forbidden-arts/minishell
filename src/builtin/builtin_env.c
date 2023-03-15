@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 13:27:38 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/15 14:34:31 by tjaasalo         ###   ########.fr       */
+/*   Created: 2023/03/15 14:34:19 by tjaasalo          #+#    #+#             */
+/*   Updated: 2023/03/15 14:41:42 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include <stdio.h>
+#include "builtin.h"
 
-void	builtin_echo(char **argv);
-void	builtin_cd(char **argv);
-void	builtin_pwd(char **argv);
-void	builtin_export(char **argv);
-void	builtin_unset(char **argv);
-void	builtin_env(char **argv);
-void	builtin_exit(char **argv);
+extern char	**environ;
 
-#endif
+void	builtin_env(char **argv)
+{
+	(void)argv;
+	if (environ)
+	{
+		while (*environ)
+		{
+			printf("%s\n", *environ);
+			environ++;
+		}
+	}
+}
