@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:34:52 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/03/15 15:58:35 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/03/15 16:32:03 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ void	builtin_pwd(char **argv)
 
 	(void)argv;
 	getcwd(cwd, sizeof(cwd));
-	printf("%s\n");
+	printf("%s\n", cwd);
 }
