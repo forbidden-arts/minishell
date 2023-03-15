@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/15 17:01:32 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:03:36 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,13 @@
 
 int	main(void)
 {
-	char	**argv;
-
 	while (1)
 	{
 		g_line.line = readline("> ");
 		// TODO: g_line null b4 split?
 		g_line.argv = ft_split(g_line.line, ' ');
 		// TODO: Split err?
-		exec_builtin(&g_line.argv[0], &g_line.argv[1]);
+		exec_builtin(g_line.argv[0], &g_line.argv[1]);
 		free_line(&g_line);
 	}
 	return (0);
@@ -49,5 +47,5 @@ BOOL	exec_builtin(char *cmd, char **argv)
 
 void	free_line(t_line *line)
 {
-	// TODO:
+	
 }
