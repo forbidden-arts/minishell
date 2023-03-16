@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:17 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/15 13:52:42 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:09:55 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,15 @@
 
 # include "bool.h"
 
-char	*g_line;
+typedef struct s_line
+{
+	char	*line;
+	char	**argv;
+}	t_line;
+
+t_line	g_line;
 
 BOOL	exec_builtin(char *cmd, char **argv);
+void	free_line(void);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/15 16:36:30 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/03/15 17:10:24 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ int	main(void)
 {
 	while (1)
 	{
-		g_line = readline(">");
-		exec_builtin(g_line, NULL);
-		free(g_line);
+		g_line.line = readline("> ");
+		// TODO: g_line null b4 split?
+		g_line.argv = ft_split(g_line.line, ' ');
+		// TODO: Split err?
+		exec_builtin(g_line.argv[0], &g_line.argv[1]);
+		free_line();
 	}
 	return (0);
 }
@@ -40,4 +43,17 @@ BOOL	exec_builtin(char *cmd, char **argv)
 	else
 		return (FALSE);
 	return (TRUE);
+}
+
+void	free_line(void)
+{
+	size_t	i;
+
+	free(g_line.line);
+	if (g_line.argv)
+	{
+		i = 0;
+		while (g_line.argv[i])
+			free(g_line.argv[i++]);
+	}
 }
