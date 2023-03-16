@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/16 13:16:16 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/03/16 13:20:17 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static int	int_min(void)
 
 void	builtin_exit(char *arg_str)
 {
-	int		exit_code;
-	char	*err_str;
+	int			exit_code;
+	const char	*err_str;
 
 	err_str = NULL;
 	if (!arg_str)
@@ -41,6 +41,6 @@ void	builtin_exit(char *arg_str)
 		exit_code = EXIT_FAILURE;
 		printf("minishell: exit: %s: numeric argument required", arg_str);
 	}
-	free_line();
+	free_shell();
 	exit(exit_code);
 }
