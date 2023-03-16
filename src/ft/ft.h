@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:36:26 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/16 11:50:15 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:01:53 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,14 @@
 # define ERR_TOOSMALL "The result was smaller than the provided minimum value."
 # define ERR_TOOLARGE "The result was larger than the provided maximum value."
 
-BOOL	ft_isspace(char c);
-size_t	ft_strspn(const char *str, const char *charset);
-size_t	ft_strcspn(const char *str, const char *charset);
+BOOL		ft_isspace(char c);
+size_t		ft_strspn(const char *str, const char *charset);
+size_t		ft_strcspn(const char *str, const char *charset);
+long long	ft_strtonum(
+				const char *str,
+				long long min,
+				long long max,
+				const char **errstr);
+char	*ft_strtok(char *restrict str, const char *restrict delim);
 
 #endif
