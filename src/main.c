@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/16 13:13:38 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:20:48 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(void)
 	{
 		g_shell.line = readline("> ");
 		exec_builtin(g_shell.line);
+		free_shell();
 	}
 	return (0);
 }
