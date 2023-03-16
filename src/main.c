@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/15 17:10:24 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:13:38 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,44 +16,48 @@
 #include <stdlib.h>
 #include "builtin.h"
 #include "libft.h"
+#include "ft.h"
 #include "main.h"
 
 int	main(void)
 {
 	while (1)
 	{
-		g_line.line = readline("> ");
-		// TODO: g_line null b4 split?
-		g_line.argv = ft_split(g_line.line, ' ');
-		// TODO: Split err?
-		exec_builtin(g_line.argv[0], &g_line.argv[1]);
-		free_line();
+		g_shell.line = readline("> ");
+		exec_builtin(g_shell.line);
 	}
 	return (0);
 }
 
-BOOL	exec_builtin(char *cmd, char **argv)
+BOOL	exec_builtin(char *command_line)
 {
-	if (ft_strncmp("exit", cmd, 5) == 0)
-		builtin_exit(argv);
-	else if (ft_strncmp("pwd", cmd, 4) == 0)
-		builtin_pwd(argv);
-	else if (ft_strncmp("env", cmd, 4) == 0)
-		builtin_env(argv);
+	char	*arg_str;
+	char	*cmd;
+	size_t	cmd_len;
+
+	cmd = command_line;
+	cmd_len = ft_strcspn(cmd, " ");
+	if (cmd_len == 0)
+		return (FALSE);
+	arg_str = NULL;
+	if (cmd[cmd_len])
+		arg_str = &cmd[cmd_len] + ft_strspn(&cmd[cmd_len], " ");
+	if (*arg_str == '\0')
+		arg_str = NULL;
+	cmd[cmd_len] = '\0';
+	if (ft_strncmp("exit", cmd, cmd_len) == 0)
+		builtin_exit(arg_str);
+	else if (ft_strncmp("pwd", cmd, cmd_len) == 0)
+		builtin_pwd(arg_str);
+	else if (ft_strncmp("env", cmd, cmd_len) == 0)
+		builtin_env(arg_str);
 	else
 		return (FALSE);
 	return (TRUE);
 }
 
-void	free_line(void)
+void	free_shell(void)
 {
-	size_t	i;
-
-	free(g_line.line);
-	if (g_line.argv)
-	{
-		i = 0;
-		while (g_line.argv[i])
-			free(g_line.argv[i++]);
-	}
+	if (g_shell.line)
+		free(g_shell.line);
 }
