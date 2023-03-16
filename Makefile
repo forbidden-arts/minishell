@@ -18,6 +18,7 @@ ft_strspn.c \
 ft_strcspn.c \
 ft_strtonum.c \
 ft_strtok.c \
+vector.c \
 main.c
 
 OBJS := 	$(SRCS:%.c=$(OBJ_DIR)%.o)
