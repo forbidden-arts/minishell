@@ -13,6 +13,11 @@ SRCS =\
 builtin_exit.c	\
 builtin_pwd.c	\
 builtin_env.c \
+ft_isspace.c \
+ft_strspn.c \
+ft_strcspn.c \
+ft_strtonum.c \
+ft_strtok.c \
 main.c
 
 OBJS := 	$(SRCS:%.c=$(OBJ_DIR)%.o)

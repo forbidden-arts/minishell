@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 14:34:52 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/03/16 13:12:35 by tjaasalo         ###   ########.fr       */
+/*   Created: 2023/03/16 11:57:02 by tjaasalo          #+#    #+#             */
+/*   Updated: 2023/03/16 11:57:42 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include "main.h"
-#include "builtin.h"
+#include "ft.h"
 
-void	builtin_pwd(char *arg_str)
+char	*ft_strtok(char *restrict str, const char *restrict delim)
 {
-	char	cwd[4096];
+	static char	*head;
+	char		*result;
 
-	(void)arg_str;
-	getcwd(cwd, sizeof(cwd));
-	printf("%s\n", cwd);
+	if (str)
+		head = str;
+	result = head + ft_strspn(head, delim);
+	head = result + ft_strcspn(head, delim);
+	if (*head)
+	{
+		*head = '\0';
+		head++;
+	}
+	if (*result)
+		return (result);
+	else
+		return (NULL);
 }
