@@ -6,12 +6,11 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:49:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/16 14:24:35 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/16 14:55:03 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "bool.h"
 #include "libft.h"
 #include "vector.h"
 
@@ -56,12 +55,13 @@ BOOL	vector_push(t_vector *self, void *elem_ptr, size_t elem_size)
 {
 	char	*data;
 
-	if (self)
+	if (!self)
 		return (FALSE);
 	if (self->length >= self->capacity && !vector_grow(self))
 			return (FALSE);
 	data = self->buffer + elem_size * self->length;
 	ft_memcpy(data, elem_ptr, elem_size);
+	self->length++;
 	return (TRUE);
 }
 
@@ -77,7 +77,7 @@ void	vector_free(t_vector *vector)
 
 void	*vector_get(t_vector *self, size_t index)
 {
-	if (self || index >= self->length)
+	if (!self || index >= self->length)
 		return (NULL);
 	return ((void *)(self->buffer + self->elem_size * index));
 }
