@@ -6,14 +6,14 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/16 13:20:17 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/19 01:08:30 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "main.h"
 #include "ft.h"
+#include "shell.h"
 #include "builtin.h"
 
 static int	int_max(void)

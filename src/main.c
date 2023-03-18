@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/16 14:25:03 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/19 01:09:40 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "builtin.h"
 #include "libft.h"
 #include "ft.h"
+#include "shell.h"
 #include "main.h"
 
 int	main(void)
@@ -55,10 +56,4 @@ BOOL	exec_builtin(char *command_line)
 	else
 		return (FALSE);
 	return (TRUE);
-}
-
-void	free_shell(void)
-{
-	if (g_shell.line)
-		free(g_shell.line);
 }
