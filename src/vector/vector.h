@@ -6,14 +6,14 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:49:14 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/16 14:24:52 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/19 00:55:58 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 
-#include <stddef.h>
+# include <stddef.h>
 
 typedef struct s_vector
 {

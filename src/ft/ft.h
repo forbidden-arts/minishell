@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:36:26 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/16 12:01:53 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/19 00:55:27 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ long long	ft_strtonum(
 				long long min,
 				long long max,
 				const char **errstr);
-char	*ft_strtok(char *restrict str, const char *restrict delim);
+char		*ft_strtok(char *restrict str, const char *restrict delim);
 
 #endif
