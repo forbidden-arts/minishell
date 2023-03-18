@@ -31,7 +31,7 @@ DEPS = $(SRCS:%.c=$(OBJ_DIR)%.d)
 all: $(NAME)
 
 libft:
-	make -C libft
+	make -C libft OBJ_DIR="../obj/"
 
 $(NAME): $(OBJS) | libft
 	$(CC) $(LDFLAGS) -o $@ $^
