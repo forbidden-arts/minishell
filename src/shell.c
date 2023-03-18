@@ -6,12 +6,14 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 01:07:29 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 01:09:15 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/19 01:28:48 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "shell.h"
+
+t_shell	g_shell;
 
 void	free_shell(void)
 {
