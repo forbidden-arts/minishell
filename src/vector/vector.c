@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:49:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/16 14:55:03 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/19 02:01:38 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ BOOL	vector_push(t_vector *self, void *elem_ptr, size_t elem_size)
 	if (!self)
 		return (FALSE);
 	if (self->length >= self->capacity && !vector_grow(self))
-			return (FALSE);
+		return (FALSE);
 	data = self->buffer + elem_size * self->length;
 	ft_memcpy(data, elem_ptr, elem_size);
 	self->length++;

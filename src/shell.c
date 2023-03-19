@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 12:10:17 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 01:06:39 by tjaasalo         ###   ########.fr       */
+/*   Created: 2023/03/19 01:07:29 by tjaasalo          #+#    #+#             */
+/*   Updated: 2023/03/19 01:28:48 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include <stdlib.h>
+#include "shell.h"
 
-# include "bool.h"
+t_shell	g_shell;
 
-BOOL	exec_builtin(char *command_line);
-void	free_shell(void);
-
-#endif
+void	free_shell(void)
+{
+	if (g_shell.line)
+		free(g_shell.line);
+}
