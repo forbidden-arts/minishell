@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:49:14 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 04:51:04 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/19 04:59:57 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_vector
 t_vector	*vector_with_capacity(size_t capacity, size_t elem_size);
 t_vector	*vector_grow(t_vector *self);
 void		vector_free(t_vector *vector);
-BOOL		vector_push(t_vector *self, void *elem_ptr, size_t elem_size);
+BOOL		vector_push(t_vector *self, void *elem_ptr);
 void		*vector_get(t_vector *self, size_t index);
 
 ///			Searches for an element in the vector, returning its index.

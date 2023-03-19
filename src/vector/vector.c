@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:49:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 02:01:38 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/19 04:59:24 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_vector	*vector_grow(t_vector *self)
 	return (self);
 }
 
-BOOL	vector_push(t_vector *self, void *elem_ptr, size_t elem_size)
+BOOL	vector_push(t_vector *self, void *elem_ptr)
 {
 	char	*data;
 
@@ -59,8 +59,8 @@ BOOL	vector_push(t_vector *self, void *elem_ptr, size_t elem_size)
 		return (FALSE);
 	if (self->length >= self->capacity && !vector_grow(self))
 		return (FALSE);
-	data = self->buffer + elem_size * self->length;
-	ft_memcpy(data, elem_ptr, elem_size);
+	data = self->buffer + self->elem_size * self->length;
+	ft_memcpy(data, elem_ptr, self->elem_size);
 	self->length++;
 	return (TRUE);
 }
