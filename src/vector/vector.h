@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:49:14 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 04:59:57 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/19 05:07:00 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define VECTOR_H
 
 # include <sys/types.h>
-# include <stddef.h>
 # include "bool.h"
 
 # define INVALID_INDEX -1
