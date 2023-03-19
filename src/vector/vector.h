@@ -6,15 +6,15 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:49:14 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 02:02:30 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/19 02:04:31 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 
-#include <stddef.h>
-#include "bool.h"
+# include <stddef.h>
+# include "bool.h"
 
 typedef struct s_vector
 {
