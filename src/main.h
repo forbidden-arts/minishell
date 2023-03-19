@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:17 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 01:06:39 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/19 09:10:51 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "bool.h"
 
-BOOL	exec_builtin(char *command_line);
 void	free_shell(void);
 
 #endif
