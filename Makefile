@@ -26,7 +26,7 @@ OBJS := 	$(SRCS:%.c=$(OBJ_DIR)%.o)
 
 DEPS = $(SRCS:%.c=$(OBJ_DIR)%.d)
 
-.PHONY: all libft clean fclean re
+.PHONY: all libft clean fclean re obj_dir
 
 all: $(NAME)
 
@@ -36,11 +36,11 @@ libft:
 $(NAME): $(OBJS) | libft
 	$(CC) $(LDFLAGS) -o $@ $^
 
-$(OBJ_DIR)%.o: %.c | $(OBJ_DIR)
+$(OBJ_DIR)%.o: %.c | obj_dir
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-$(OBJ_DIR):
-	@mkdir -p $@
+obj_dir:
+	@mkdir -p $(OBJ_DIR)
 
 re: fclean all
 
@@ -49,7 +49,7 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
-	make fclean -C libft
+	make fclean -C libft OBJ_DIR="../obj/"
 
 vpath %.c $(SRC_DIR)
 
