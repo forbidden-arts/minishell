@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:49:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 14:08:28 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:09:11 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_vector	*vector_grow(t_vector *self)
 	buffer = malloc(new_capacity * self->elem_size);
 	if (!buffer)
 		return (NULL);
-	ft_memcpy(buffer, self->buffer, self->length);
+	ft_memcpy(buffer, self->buffer, self->length * self->elem_size);
 	free(self->buffer);
 	self->buffer = buffer;
 	self->capacity = new_capacity;
