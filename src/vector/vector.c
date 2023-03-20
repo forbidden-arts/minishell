@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:49:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 04:59:24 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:09:11 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_vector	*vector_with_capacity(size_t capacity, size_t elem_size)
 	self->length = 0;
 	self->capacity = capacity;
 	self->elem_size = elem_size;
-	self->buffer = malloc(sizeof(elem_size) * capacity);
+	self->buffer = malloc(elem_size * capacity);
 	if (!self->buffer)
 	{
 		free(self);
@@ -41,10 +41,10 @@ t_vector	*vector_grow(t_vector *self)
 	if (!self)
 		return (NULL);
 	new_capacity = self->capacity * 2;
-	buffer = malloc(new_capacity * sizeof(self->elem_size));
+	buffer = malloc(new_capacity * self->elem_size);
 	if (!buffer)
 		return (NULL);
-	ft_memcpy(buffer, self->buffer, self->length);
+	ft_memcpy(buffer, self->buffer, self->length * self->elem_size);
 	free(self->buffer);
 	self->buffer = buffer;
 	self->capacity = new_capacity;
