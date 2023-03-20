@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 09:50:14 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/03/20 10:56:56 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,16 @@ void	builtin_exit(char *arg_str)
 		exit_code = EXIT_SUCCESS;
 	else
 		exit_code = ft_strtonum(arg_str, int_min(), int_max(), &err_str);
-	printf("exit\n");
 	if (err_str)
 	{
 		exit_code = EXIT_FAILURE;
+		write(STDERR_FILENO, "exit\n", 5);
 		write(STDERR_FILENO, "minishell: exit: ", 17);
 		write(STDERR_FILENO, arg_str, ft_strlen(arg_str));
 		write(STDERR_FILENO, ": numeric argument required\n", 28);
 	}
+	else
+		printf("exit\n");
 	free_shell();
 	exit(exit_code);
 }
