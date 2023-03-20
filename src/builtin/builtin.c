@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 08:48:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 09:13:42 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:14:00 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ t_builtin_func	builtin_get(char *name)
 	static const t_builtin	builtins[BUILTINS_LENGTH] = {
 	{"pwd", builtin_pwd},
 	{"env", builtin_env},
-	{"exit", builtin_exit}
+	{"exit", builtin_exit},
+	{"export", builtin_export},
+	{"unset", builtin_unset}
 	};
 
 	idx = 0;

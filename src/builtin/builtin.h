@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:38 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 09:12:55 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:14:04 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "bool.h"
 
-# define BUILTINS_LENGTH 3
+# define BUILTINS_LENGTH 5
 
 typedef void	(*t_builtin_func)(char *);
 
