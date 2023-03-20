@@ -19,6 +19,8 @@ ft_strcspn.c \
 ft_strtonum.c \
 ft_strtok.c \
 vector.c \
+vector_remove.c \
+vector_position.c \
 shell.c \
 main.c
 
