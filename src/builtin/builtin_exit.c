@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 01:08:30 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/20 09:42:17 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
+#include "libft.h"
 #include "ft.h"
 #include "shell.h"
 #include "builtin.h"
@@ -32,14 +34,17 @@ void	builtin_exit(char *arg_str)
 	const char	*err_str;
 
 	err_str = NULL;
-	if (!arg_str)
+	if (arg_str == NULL)
 		exit_code = EXIT_SUCCESS;
-	exit_code = ft_strtonum(arg_str, int_min(), int_max(), &err_str);
+	else
+		exit_code = ft_strtonum(arg_str, int_min(), int_max(), &err_str);
 	printf("exit\n");
 	if (err_str)
 	{
 		exit_code = EXIT_FAILURE;
-		printf("minishell: exit: %s: numeric argument required", arg_str);
+		write(2, "minishell: exit: ", 17);
+		write(2, arg_str, ft_strlen(arg_str));
+		write(2, ": numeric argument required\n", 28);
 	}
 	free_shell();
 	exit(exit_code);
