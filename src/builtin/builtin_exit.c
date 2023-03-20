@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 10:56:56 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/03/20 10:59:50 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	builtin_exit(char *arg_str)
 	const char	*err_str;
 
 	err_str = NULL;
-	if (arg_str == NULL)
+	if (!arg_str)
 		exit_code = EXIT_SUCCESS;
 	else
 		exit_code = ft_strtonum(arg_str, int_min(), int_max(), &err_str);
