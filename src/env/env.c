@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:46:05 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 19:34:03 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:42:46 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ static BOOL	_env_init(t_env *env, char **envp);
 
 BOOL	env_init(char **envp)
 {
-	t_env	*env;
-
-	env = &g_shell.env;
 	if (!_env_init(&g_shell.env, envp))
 	{
 		env_free();
