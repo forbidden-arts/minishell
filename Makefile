@@ -23,6 +23,9 @@ vector.c \
 vector_remove.c \
 vector_position.c \
 shell.c \
+env.c \
+env_util.c \
+env_ops.c \
 main.c
 
 OBJS := 	$(SRCS:%.c=$(OBJ_DIR)%.o)

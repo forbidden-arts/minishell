@@ -6,15 +6,11 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:17 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 09:10:51 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:15:02 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_H
 # define MAIN_H
-
-# include "bool.h"
-
-void	free_shell(void);
 
 #endif
