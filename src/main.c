@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 09:11:00 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:42:09 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,18 @@
 #include "shell.h"
 #include "main.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
+	(void)argc;
+	(void)argv;
+	shell_init(envp);
 	while (1)
 	{
 		g_shell.line = readline("> ");
 		builtin_exec(g_shell.line);
-		free_shell();
+		free(g_shell.line);
+		g_shell.line = NULL;
 	}
+	free_shell();
 	return (0);
 }
