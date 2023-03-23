@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 16:42:09 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/23 17:53:38 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		g_shell.line = readline("> ");
-		builtin_exec(g_shell.line);
+		g_shell.status = builtin_exec(g_shell.line);
 		free(g_shell.line);
 		g_shell.line = NULL;
 	}
