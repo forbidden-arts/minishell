@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 14:34:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 16:42:24 by tjaasalo         ###   ########.fr       */
+/*   Created: 2023/03/20 17:09:09 by tjaasalo          #+#    #+#             */
+/*   Updated: 2023/03/20 19:37:11 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stddef.h>
+#include <unistd.h>
+#include "ft.h"
+#include "libft.h"
+#include "env.h"
 #include "shell.h"
 #include "builtin.h"
 
-void	builtin_env(char *arg_str)
+void	builtin_unset(char *arg_str)
 {
-	size_t	idx;
-
-	(void)arg_str;
-	idx = 0;
-	while (idx < g_shell.env.envp->length)
+	if (!arg_str)
+		return ;
+	if (!is_name(arg_str, (size_t)-1))
 	{
-		printf("%s\n", *(char **)vector_get(g_shell.env.envp, idx));
-		idx++;
+		write(STDERR_FILENO, "minishell: unset: `", 20);
+		write(STDERR_FILENO, arg_str, ft_strlen(arg_str));
+		write(STDERR_FILENO, "': not a valid identifier\n", 26);
+		return ;
 	}
+	env_unset(arg_str);
 }
