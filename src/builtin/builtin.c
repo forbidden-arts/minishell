@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 08:48:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 17:14:00 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/23 17:51:08 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_builtin_func	builtin_get(char *name)
 	return (NULL);
 }
 
-BOOL	builtin_exec(char *command_line)
+int	builtin_exec(char *command_line)
 {
 	char			*arg_str;
 	char			*name;
@@ -58,7 +58,6 @@ BOOL	builtin_exec(char *command_line)
 	name[name_len] = '\0';
 	builtin = builtin_get(name);
 	if (!builtin)
-		return (FALSE);
-	builtin(arg_str);
-	return (TRUE);
+		return (ERR_NOT_FOUND);
+	return (builtin(arg_str));
 }

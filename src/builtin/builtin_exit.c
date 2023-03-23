@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 11:24:56 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/03/23 17:44:51 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	int_min(void)
 	return ((int)(((((unsigned int)-1) / 2) + 1)));
 }
 
-void	builtin_exit(char *arg_str)
+int	builtin_exit(char *arg_str)
 {
 	int			exit_code;
 	const char	*err_str;
@@ -47,4 +47,5 @@ void	builtin_exit(char *arg_str)
 	}
 	free_shell();
 	exit(exit_code);
+	return (OK);
 }
