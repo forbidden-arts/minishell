@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:34:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/23 17:44:43 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/23 21:49:49 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 #include "shell.h"
 #include "builtin.h"
 
-int	builtin_env(char *arg_str)
+int	builtin_env(t_vector *argv)
 {
 	size_t	idx;
 
-	(void)arg_str;
+	(void)argv;
 	idx = 0;
 	while (idx < g_shell.env.envp->length)
 	{

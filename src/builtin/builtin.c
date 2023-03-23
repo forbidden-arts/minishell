@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 08:48:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/23 17:51:08 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/23 22:03:21 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,16 @@ t_builtin_func	builtin_get(char *name)
 	return (NULL);
 }
 
-int	builtin_exec(char *command_line)
+int	builtin_exec(t_vector *argv)
 {
-	char			*arg_str;
 	char			*name;
-	size_t			name_len;
 	t_builtin_func	builtin;
 
-	name = command_line;
-	name_len = ft_strcspn(name, " ");
-	if (name_len == 0)
-		return (FALSE);
-	arg_str = NULL;
-	if (name[name_len])
-	{
-		arg_str = &name[name_len] + ft_strspn(&name[name_len], " ");
-		if (*arg_str == '\0')
-			arg_str = NULL;
-	}
-	name[name_len] = '\0';
+	if (argv->length == 0)
+		return (ERR_NOT_FOUND);
+	name = *(char **)vector_get(argv, 0);
 	builtin = builtin_get(name);
 	if (!builtin)
 		return (ERR_NOT_FOUND);
-	return (builtin(arg_str));
+	return (builtin(argv));
 }

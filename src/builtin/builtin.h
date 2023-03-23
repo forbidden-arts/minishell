@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:38 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/23 17:51:04 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/23 21:57:54 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define BUILTIN_H
 
 # include "bool.h"
+# include "vector.h"
 
 # define BUILTINS_LENGTH 5
 ///	Ok.
@@ -23,7 +24,7 @@
 ///	Builtin was given an incorrect number of / invalid arguments.
 # define ERR_INVALID_ARGS 2
 
-typedef int	(*t_builtin_func)(char *);
+typedef int	(*t_builtin_func)(t_vector *);
 
 typedef struct s_builtin
 {
@@ -32,13 +33,13 @@ typedef struct s_builtin
 }	t_builtin;
 
 t_builtin_func	builtin_get(char *name);
-int				builtin_exec(char *command_line);
-int				builtin_echo(char *arg_str);
-int				builtin_cd(char *arg_str);
-int				builtin_pwd(char *arg_str);
-int				builtin_export(char *arg_str);
-int				builtin_unset(char *arg_str);
-int				builtin_env(char *arg_str);
-int				builtin_exit(char *arg_str);
+int				builtin_exec(t_vector *argv);
+int				builtin_echo(t_vector *argv);
+int				builtin_cd(t_vector *argv);
+int				builtin_pwd(t_vector *argv);
+int				builtin_export(t_vector *argv);
+int				builtin_unset(t_vector *argv);
+int				builtin_env(t_vector *argv);
+int				builtin_exit(t_vector *argv);
 
 #endif

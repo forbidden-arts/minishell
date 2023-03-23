@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 17:09:09 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/23 17:48:28 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/23 22:03:42 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,20 @@
 #include "shell.h"
 #include "builtin.h"
 
-int	builtin_unset(char *arg_str)
+int	builtin_unset(t_vector *argv)
 {
-	if (!arg_str)
+	char	*arg;
+
+	if (argv->length <= 1)
 		return (ERR_INVALID_ARGS);
-	if (!is_name(arg_str, (size_t)-1))
+	arg = *(char **)vector_get(argv, 1);
+	if (!is_name(arg, (size_t)-1))
 	{
 		write(STDERR_FILENO, "minishell: unset: `", 20);
-		write(STDERR_FILENO, arg_str, ft_strlen(arg_str));
+		write(STDERR_FILENO, arg, ft_strlen(arg));
 		write(STDERR_FILENO, "': not a valid identifier\n", 26);
 		return (ERR_INVALID_ARGS);
 	}
-	env_unset(arg_str);
+	env_unset(arg);
 	return (OK);
 }
