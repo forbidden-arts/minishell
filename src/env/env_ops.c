@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:27:24 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 19:39:41 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/23 17:12:07 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,26 @@ const char	*env_get(const char *name)
 
 	match.name = name;
 	match.name_length = ft_strlen(name);
-	idx = env_position(g_shell.env.envp, &match);
+	idx = env_position(g_shell.env, &match);
 	if (idx == INVALID_INDEX)
 		return (NULL);
-	return (*(char **)vector_get(g_shell.env.envp, (size_t)idx));
+	return (*(char **)vector_get(g_shell.env, (size_t)idx));
 }
 
 void	env_unset(const char *name)
 {
 	t_env_match	match;
 	ssize_t		idx;
+	char		*var;
 
 	match.name = name;
 	match.name_length = ft_strlen(name);
-	idx = env_position(g_shell.env.envp, &match);
+	idx = env_position(g_shell.env, &match);
 	if (idx == INVALID_INDEX)
 		return ;
-	vector_swap_remove(g_shell.env.envp, (size_t)idx);
-	idx = env_position(g_shell.env.exports, &match);
-	if (idx != INVALID_INDEX)
-	{
-		free(*(char **)vector_get(g_shell.env.exports, (size_t)idx));
-		vector_swap_remove(g_shell.env.exports, (size_t)idx);
-	}
+	var = *(char **)vector_get(g_shell.env, (size_t)idx);
+	free(var);
+	vector_swap_remove(g_shell.env, (size_t)idx);
 }
 
 BOOL	env_set(const char *name, const char *value)
@@ -64,8 +61,7 @@ BOOL	env_set(const char *name, const char *value)
 	var[name_length] = '=';
 	ft_memcpy(&var[name_length + 1], value, value_length);
 	var[var_length] = '\0';
-	if (!vector_push(g_shell.env.envp, &var)
-		|| !vector_push(g_shell.env.exports, &var))
+	if (!vector_push(g_shell.env, &var))
 		return (FALSE);
 	return (TRUE);
 }
