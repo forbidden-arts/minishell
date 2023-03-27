@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:46:12 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 19:39:28 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/23 17:01:30 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,7 @@
 # include "bool.h"
 # include "vector.h"
 
-typedef struct s_env
-{
-	t_vector	*envp;
-	t_vector	*exports;
-}	t_env;
+typedef t_vector	t_env;
 
 typedef struct s_env_match
 {
