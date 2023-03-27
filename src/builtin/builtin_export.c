@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:43:40 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/27 15:21:42 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:32:09 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,26 @@
 #include "env.h"
 #include "shell.h"
 #include "builtin.h"
+
+static int	_builtin_export(char *var);
+
+int	builtin_export(t_vector *argv)
+{
+	char	*var;
+	size_t	idx;
+	int		status;
+
+	if (argv->length <= 1)
+		return (builtin_env(argv));
+	status = OK;
+	idx = 1;
+	while (idx < argv->length)
+	{
+		var = *(char **)vector_get(argv, idx++);
+		status |= _builtin_export(var);
+	}
+	return (status);
+}
 
 static int	_builtin_export(char *var)
 {
@@ -39,22 +59,4 @@ static int	_builtin_export(char *var)
 		return (ERR_SYSTEM);
 	}
 	return (OK);
-}
-
-int	builtin_export(t_vector *argv)
-{
-	char	*var;
-	size_t	idx;
-	int		status;
-
-	if (argv->length <= 1)
-		return (builtin_env(argv));
-	status = OK;
-	idx = 1;
-	while (idx < argv->length)
-	{
-		var = *(char **)vector_get(argv, idx++);
-		status |= _builtin_export(var);
-	}
-	return (status);
 }
