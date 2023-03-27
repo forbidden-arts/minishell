@@ -1,14 +1,26 @@
-NAME = 		minishell
+# Targets
+NAME		= minishell
+LIBFT 		= libft/libft.a
 
-OBJ_DIR = 	obj/
-INC_DIR = 	inc/ libft/inc/
-SRC_DIR = 	$(sort $(dir $(wildcard src/*/))) src/
+# Directories
+OBJ_DIR		= obj/
+SRC_DIR		= $(sort $(dir $(wildcard src/*/))) src/
+INC_DIR		= inc/ libft/inc/ $(SRC_DIR)
+LIB_DIR		= libft
 
-I =			$(INC_DIR:%=-I%) $(SRC_DIR:%=-I%)
-CFLAGS = 	-MP -MMD -Wall -Wextra -Werror $I
-LDFLAGS =	-Llibft -lft -lreadline
-CC = 		cc
+# Flags setup
+CC		= cc
+OPT		= 0
+LIB		= readline ft
+WARN	= all extra error
+EXTRA	= -MP -MMD
 
+# Compiler flags
+override CFLAGS 	+= $(EXTRA) $(OPT:%=-O%) $(INC_DIR:%=-I%) $(WARN:%=-W%)
+# Linker flags
+override LDFLAGS	+= $(LIB_DIR:%=-L%) $(LIB:%=-l%)
+
+# Sources
 SRCS =\
 builtin.c \
 builtin_exit.c \
@@ -30,18 +42,19 @@ env_util.c \
 env_ops.c \
 main.c
 
-OBJS := 	$(SRCS:%.c=$(OBJ_DIR)%.o)
+OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
 
 DEPS = $(SRCS:%.c=$(OBJ_DIR)%.d)
 
-.PHONY: all libft clean fclean re obj_dir
+.PHONY: all clean fclean re obj_dir $(LIBFT)
 
 all: $(NAME)
 
-libft:
-	make -C libft OBJ_DIR="../obj/"
+$(LIBFT):
+	make -C libft OBJ_DIR="../obj/" OPT=$(OPT:%=-O%)
 
-$(NAME): $(OBJS) | libft
+$(NAME): $(OBJS) | $(LIBFT)
+	@echo ""
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 $(OBJ_DIR)%.o: %.c | obj_dir
@@ -57,8 +70,11 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
-	make fclean -C libft OBJ_DIR="../obj/"
+	rm -rf $(LIBFT)
+
+debug: fclean
+	make -C libft OBJ_DIR="../obj/" FLAGS="-g -fsanitize=address" OPT=$(OPT:%=-O%)
+	make $(NAME) CFLAGS="-g -fsanitize=address"
 
 vpath %.c $(SRC_DIR)
-
 -include $(DEPS)
