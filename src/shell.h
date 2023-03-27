@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 01:06:43 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/23 17:53:11 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/27 13:07:56 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 typedef struct s_shell
 {
 	char	*line;
-	t_env	env;
+	t_env	*env;
 	int		status;
 }	t_shell;
 

@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:34:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/23 21:49:49 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/27 13:07:13 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	builtin_env(t_vector *argv)
 
 	(void)argv;
 	idx = 0;
-	while (idx < g_shell.env.envp->length)
+	while (idx < g_shell.env->length)
 	{
-		printf("%s\n", *(char **)vector_get(g_shell.env.envp, idx));
+		printf("%s\n", *(char **)vector_get(g_shell.env, idx));
 		idx++;
 	}
 	return (OK);
