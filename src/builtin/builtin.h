@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:38 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/27 13:42:51 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/03/27 14:22:52 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define ERR_NOT_FOUND 1
 ///	Builtin was given an incorrect number of / invalid arguments.
 # define ERR_INVALID_ARGS 2
+/// System errors
+# define ERR_SYSTEM 3
 
 typedef int	(*t_builtin_func)(t_vector *);
 
