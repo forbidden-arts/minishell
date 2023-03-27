@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/23 22:03:34 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:16:16 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	builtin_exit(t_vector *argv)
 
 	err_str = NULL;
 	if (argv->length <= 1)
-		exit_code = EXIT_SUCCESS;
+		exit_code = g_shell.status;
 	else
 	{
 		arg = *(char **)vector_get(argv, 1);
