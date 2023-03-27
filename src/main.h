@@ -6,11 +6,13 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:17 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 13:15:02 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/23 22:04:38 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_H
 # define MAIN_H
+
+t_vector	*parse_args(char *line);
 
 #endif

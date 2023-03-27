@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 16:42:09 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/23 22:05:01 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,59 @@
 #include "libft.h"
 #include "ft.h"
 #include "shell.h"
+#include "vector.h"
+#include "bool.h"
 #include "main.h"
+
+static BOOL	_parse_args(char *line, t_vector *args);
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_vector	*args;
+
 	(void)argc;
 	(void)argv;
 	shell_init(envp);
 	while (1)
 	{
 		g_shell.line = readline("> ");
-		builtin_exec(g_shell.line);
+		if (g_shell.line)
+			args = parse_args(g_shell.line);
+		if (args)
+			g_shell.status = builtin_exec(args);
+		vector_free(args);
 		free(g_shell.line);
 		g_shell.line = NULL;
 	}
 	free_shell();
 	return (0);
+}
+
+t_vector	*parse_args(char *line)
+{
+	t_vector	*args;
+
+	args = vector_with_capacity(1, sizeof(char *));
+	if (!args)
+		return (NULL);
+	if (!_parse_args(line, args))
+	{
+		vector_free(args);
+		return (NULL);
+	}
+	return (args);
+}
+
+static BOOL	_parse_args(char *line, t_vector *args)
+{
+	char		*arg;
+
+	arg = ft_strtok(line, " ");
+	while (arg)
+	{
+		if (!vector_push(args, &arg))
+			return (FALSE);
+		arg = ft_strtok(NULL, " ");
+	}
+	return (TRUE);
 }
