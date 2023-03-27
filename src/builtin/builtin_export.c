@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:43:40 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/27 14:46:08 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:21:42 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	builtin_export(t_vector *argv)
 	while (idx < argv->length)
 	{
 		var = *(char **)vector_get(argv, idx++);
-		status |= _builtin_export(var); // TODO: Needs early return on err sys
+		status |= _builtin_export(var);
 	}
 	return (status);
 }
