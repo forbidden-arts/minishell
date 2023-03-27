@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:43:40 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/27 14:42:34 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:46:08 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	builtin_export(t_vector *argv)
 	int		status;
 
 	if (argv->length <= 1)
-		return (ERR_INVALID_ARGS);
+		return (builtin_env(argv));
 	status = OK;
 	idx = 1;
 	while (idx < argv->length)
