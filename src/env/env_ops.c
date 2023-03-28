@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:27:24 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/23 17:12:07 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/28 10:01:15 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ const char	*env_get(const char *name)
 {
 	t_env_match	match;
 	ssize_t		idx;
+	char		*var;
 
 	match.name = name;
 	match.name_length = ft_strlen(name);
 	idx = env_position(g_shell.env, &match);
 	if (idx == INVALID_INDEX)
 		return (NULL);
-	return (*(char **)vector_get(g_shell.env, (size_t)idx));
+	var = *(char **)vector_get(g_shell.env, (size_t)idx);
+	return (&var[match.name_length + 1]);
 }
 
 void	env_unset(const char *name)
