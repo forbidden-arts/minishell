@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:38:38 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/03/27 13:52:00 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/03/28 10:03:06 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	builtin_cd(t_vector *argv)
 			write(STDERR_FILENO, "minishell: cd: HOME not set\n", 28);
 			return (EXIT_FAILURE);
 		}
-		path = &path[5];
 	}
 	else
 		path = *(char **)vector_get(argv, 1);
