@@ -6,36 +6,57 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:43:40 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/23 21:55:33 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:32:09 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <unistd.h>
+#include <stdio.h>
 #include "ft.h"
 #include "env.h"
 #include "shell.h"
 #include "builtin.h"
 
+static int	_builtin_export(char *var);
+
 int	builtin_export(t_vector *argv)
 {
-	size_t	name_length;
-	char	*arg;
+	char	*var;
+	size_t	idx;
+	int		status;
 
 	if (argv->length <= 1)
-		return (ERR_INVALID_ARGS);
-	arg = *(char **)vector_get(argv, 1);
-	name_length = ft_strcspn(arg, "=");
-	if (name_length == 0 || !is_name(arg, name_length))
+		return (builtin_env(argv));
+	status = OK;
+	idx = 1;
+	while (idx < argv->length)
+	{
+		var = *(char **)vector_get(argv, idx++);
+		status |= _builtin_export(var);
+	}
+	return (status);
+}
+
+static int	_builtin_export(char *var)
+{
+	size_t	name_length;
+
+	name_length = ft_strcspn(var, "=");
+	if (name_length == 0 || !is_name(var, name_length))
 	{
 		write(STDERR_FILENO, "minishell: export: `", 20);
-		write(STDERR_FILENO, arg, name_length);
+		write(STDERR_FILENO, var, name_length);
 		write(STDERR_FILENO, "': not a valid identifier\n", 26);
 		return (ERR_INVALID_ARGS);
 	}
-	if (!arg[name_length])
+	if (!var[name_length])
 		return (ERR_INVALID_ARGS);
-	arg[name_length] = '\0';
-	env_set(arg, &arg[name_length + 1]);
+	var[name_length] = '\0';
+	if (!env_set(var, &var[name_length + 1]))
+	{
+		perror("minishell: export");
+		return (ERR_SYSTEM);
+	}
 	return (OK);
 }
