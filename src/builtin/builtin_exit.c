@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/23 22:03:34 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/03/28 14:05:18 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@ int	builtin_exit(t_vector *argv)
 	char		*arg;
 
 	err_str = NULL;
+	write(STDERR_FILENO, "exit\n", 5);
 	if (argv->length <= 1)
-		exit_code = EXIT_SUCCESS;
+		exit_code = g_shell.status;
 	else
 	{
 		arg = *(char **)vector_get(argv, 1);
 		exit_code = ft_strtonum(arg, int_min(), int_max(), &err_str);
-	}
-	write(STDERR_FILENO, "exit\n", 5);
-	if (err_str)
-	{
-		exit_code = EXIT_FAILURE;
-		write(STDERR_FILENO, "minishell: exit: ", 17);
-		write(STDERR_FILENO, arg, ft_strlen(arg));
-		write(STDERR_FILENO, ": numeric argument required\n", 28);
+		if (err_str)
+		{
+			exit_code = EXIT_FAILURE;
+			write(STDERR_FILENO, "minishell: exit: ", 17);
+			write(STDERR_FILENO, arg, ft_strlen(arg));
+			write(STDERR_FILENO, ": numeric argument required\n", 28);
+		}
 	}
 	vector_free(argv);
 	free_shell();
