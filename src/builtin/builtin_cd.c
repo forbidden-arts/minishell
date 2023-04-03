@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:38:38 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/03/31 11:02:20 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/03 16:07:51 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,21 @@ static const char	*parse_path(t_vector *argv)
 	return (path);
 }
 
-static int	_builtin_cd(const char *to, const char *from)
+static int	_builtin_cd(const char *to)
 {
-	char	pwd_buff[4096];
+	char	old_pwd_buff[PWD_BUFF];
 
+	if (!getcwd(old_pwd_buff, PWD_BUFF))
+	{
+		perror ("minishell: cd");
+		return (EXIT_FAILURE);
+	}
 	if (chdir(to) == -1)
 	{
 		perror("minishell: cd");
 		return (EXIT_FAILURE);
 	}
-	if (!getcwd(pwd_buff, 4096) || !env_set("OLDPWD", from)
-		|| !env_set("PWD", pwd_buff))
+	if (!env_set("OLDPWD", old_pwd_buff) || !env_set("PWD", to))
 	{
 		perror("minishell: cd");
 		return (EXIT_FAILURE);
@@ -48,7 +52,6 @@ static int	_builtin_cd(const char *to, const char *from)
 
 int	builtin_cd(t_vector *argv)
 {
-	const char	*from;
 	const char	*to;
 
 	to = parse_path(argv);
@@ -57,12 +60,11 @@ int	builtin_cd(t_vector *argv)
 		write(STDERR_FILENO, "minishell: cd: HOME not set\n", 28);
 		return (EXIT_FAILURE);
 	}
-	from = env_get("PWD");
 	if (ft_strncmp(to, "-", 1) == 0)
 	{
 		to = env_get("OLDPWD");
 		if (to)
 			printf("%s\n", to);
 	}
-	return (_builtin_cd(to, from));
+	return (_builtin_cd(to));
 }
