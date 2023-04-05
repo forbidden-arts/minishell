@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 01:07:29 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/05 14:27:23 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/05 17:01:58 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	shell_init(char **envp)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	free_shell(void)
+void	shell_free(void)
 {
 	if (g_shell.line)
 		free(g_shell.line);

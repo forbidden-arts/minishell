@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/05 16:02:25 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/05 17:01:58 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	builtin_exit(t_vector *argv)
 		}
 	}
 	vector_free(argv);
-	free_shell();
+	shell_free();
 	exit(exit_code);
 	return (OK);
 }
