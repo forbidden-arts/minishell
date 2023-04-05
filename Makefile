@@ -44,6 +44,7 @@ shell.c 			\
 env.c 				\
 env_util.c 			\
 env_ops.c 			\
+str.c				\
 main.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
