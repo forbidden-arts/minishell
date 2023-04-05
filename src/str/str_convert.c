@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:22:02 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/05 15:32:14 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:46:48 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_str	*str_from_ptr(const char *str)
 		free(self);
 		return (NULL);
 	}
+	ft_memcpy(self->buffer, str, length);
 	self->length = length;
 	self->capacity = length;
 	return (self);
