@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:22:02 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/05 15:46:48 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:58:05 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_str	*str_from_ptr(const char *str)
 	t_str	*self;
 
 	length = ft_strlen(str) + 1;
-	if (length == 0)
+	if (length <= 1)
 		return (NULL);
 	self = malloc(sizeof(t_str));
 	if (!self)

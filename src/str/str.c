@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:46:15 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/05 15:13:41 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:57:55 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	str_free(t_str *self)
 		if (self->buffer)
 			free(self->buffer);
 		*self = (t_str){0};
+		free(self);
 	}
 }
 
