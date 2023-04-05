@@ -3,8 +3,8 @@ NAME		= minishell
 LIBFT 		= libft/libft.a
 
 # Directories
-READLINE_LIB_PATH	= $(shell brew --prefix)/lib/
-READLINE_INC_PATH	= $(shell brew --prefix)/include/
+READLINE_LIB_PATH	= $(shell brew --prefix)/opt/readline/lib/
+READLINE_INC_PATH	= $(shell brew --prefix)/opt/readline/include/
 OBJ_DIR				= obj/
 SRC_DIR				= $(sort $(dir $(wildcard src/*/))) src/
 INC_DIR				= inc/ libft/inc/ $(SRC_DIR) $(READLINE_INC_PATH)
@@ -45,6 +45,8 @@ env.c 				\
 env_util.c 			\
 env_ops.c 			\
 str.c				\
+str_push.c			\
+str_convert.c		\
 main.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
