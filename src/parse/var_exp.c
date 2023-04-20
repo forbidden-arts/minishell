@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:20:03 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/04/20 15:57:03 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/20 19:37:13 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 #include "str.h"
 #include <stdio.h>
 
-#define VAL_V "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+#define AL_NUM "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+#define D_QUOTE 0b01
+#define S_QUOTE 0b10
 
 static void	var_expand(t_str *self, char *word, size_t *index)
 {
@@ -30,25 +32,22 @@ static void	var_expand(t_str *self, char *word, size_t *index)
 	temp = NULL;
 	name = NULL;
 	name_len = 0;
-	printf("index on the way in %zu\n", *index);
 	if (word[(*index)++] == '?')
 		temp = ft_strdup(ft_itoa(g_shell.status));
 	else if (word[*index] == '_' || ft_isalpha(word[*index]))
 	{
-		name_len += ft_strspn(&word[*index], VAL_V);
+		name_len += ft_strspn(&word[*index], AL_NUM);
 		name = ft_substr(word, *index, name_len);
 		temp = env_get(name);
-		printf("len %zu | name: %s | temp: %s\n", name_len, name, temp);
 	}
-	str_push_ptr(self, temp);
-	(*index) += name_len;
-	printf("index on the way out: %zu\n", *index);
-	if (name)
-		free(name);
+	if (temp)
+	{
+		str_push_ptr(self, temp);
+		(*index) += name_len;
+		if (name)
+			free(name);
+	}
 }
-
-#define D_QUOTE 0b01
-#define S_QUOTE 0b10
 
 static void	_expand(t_word *word)
 {
@@ -84,6 +83,8 @@ BOOL	expand(t_vector *tokens)
 	size_t	index;
 	t_token	*token;
 
+	if (!tokens)
+		return (FALSE);
 	index = 0;
 	while (index < tokens->length)
 	{
