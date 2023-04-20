@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/05 17:01:58 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/20 14:06:04 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "shell.h"
 #include "vector.h"
 #include "bool.h"
+#include "parse.h"
 #include "main.h"
 
 static BOOL	_parse_args(char *line, t_vector *args);
@@ -36,6 +37,14 @@ int	main(int argc, char **argv, char **envp)
 		g_shell.line = readline("> ");
 		if (!g_shell.line)
 			builtin_exit(NULL);
+		t_vector *tokens = tokenize(g_shell.line);
+		expand(tokens);
+		for (size_t i = 0; i < tokens->length; i++)
+		{
+			t_token *token = vector_get(tokens, i);
+			if (token->type == token_type_word)
+				printf("index:: %zu word: %s\n", i, token->word);
+		}
 		if (g_shell.line[0])
 			add_history(g_shell.line);
 		args = parse_args(g_shell.line);

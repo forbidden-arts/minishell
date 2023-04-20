@@ -51,6 +51,7 @@ file_exp.c			\
 token.c				\
 read.c				\
 word.c				\
+var_exp.c			\
 main.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_convert.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:22:02 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/05 16:58:05 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/04/20 14:46:34 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ t_str	*str_from_ptr(const char *str)
 	t_str	*self;
 
 	length = ft_strlen(str) + 1;
-	if (length <= 1)
-		return (NULL);
 	self = malloc(sizeof(t_str));
 	if (!self)
 		return (NULL);
