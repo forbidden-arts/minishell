@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:20:03 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/04/25 12:10:43 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/25 14:42:56 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ static void	var_expand(t_str *self, char *word, size_t *index)
 
 	temp = "$";
 	name = NULL;
-	name_len = 1;
+	name_len = 0;
 	(*index) += 1;
 	if (word[(*index)] == '?')
+	{
 		temp = ft_itoa(g_shell.status);
+		name_len += 1;
+	}
 	else if (word[*index] == '_' || ft_isalpha(word[*index]))
 	{
 		name_len += ft_strspn(&word[*index], AL_NUM);
