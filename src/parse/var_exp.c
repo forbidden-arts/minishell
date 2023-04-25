@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:20:03 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/04/25 10:45:11 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/25 12:10:43 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "shell.h"
 #include "parse.h"
 #include "str.h"
-#include <stdio.h>
 
 #define AL_NUM "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 #define D_QUOTE 0b01
@@ -29,19 +28,18 @@ static void	var_expand(t_str *self, char *word, size_t *index)
 	const char	*temp;
 	size_t		name_len;
 
-	temp = NULL;
+	temp = "$";
 	name = NULL;
-	name_len = 0;
-	if (word[(*index)++] == '?')
-		temp = ft_strdup(ft_itoa(g_shell.status));
+	name_len = 1;
+	(*index) += 1;
+	if (word[(*index)] == '?')
+		temp = ft_itoa(g_shell.status);
 	else if (word[*index] == '_' || ft_isalpha(word[*index]))
 	{
 		name_len += ft_strspn(&word[*index], AL_NUM);
 		name = ft_substr(word, *index, name_len);
 		temp = env_get(name);
 	}
-	else
-		temp = "$";
 	if (temp)
 		str_push_ptr(self, temp);
 	(*index) += name_len;
