@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:20:03 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/04/20 19:37:13 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/25 10:45:11 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ static void	var_expand(t_str *self, char *word, size_t *index)
 		name = ft_substr(word, *index, name_len);
 		temp = env_get(name);
 	}
+	else
+		temp = "$";
 	if (temp)
-	{
 		str_push_ptr(self, temp);
-		(*index) += name_len;
-		if (name)
-			free(name);
-	}
+	(*index) += name_len;
+	if (name)
+		free(name);
 }
 
 static void	_expand(t_word *word)
