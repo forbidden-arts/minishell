@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:20:03 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/04/25 18:51:55 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/25 19:19:39 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,20 @@ static void	var_expand(t_str *self, char *word, size_t *index)
 		str_push(self, '$');
 }
 
-static char	flags_check(char c, char flags, size_t *index)
-{
-	if (c == '\'' && !(flags & D_QUOTE))
-	{
-		flags ^= S_QUOTE;
-		(*index) += 1;
-	}
-	else if (c == '\"' && !(flags & S_QUOTE))
-	{
-		flags ^= D_QUOTE;
-		(*index) += 1;
-	}
-	return (flags);
-}
+// static char	flags_check(char c, char flags, size_t *index)
+// {
+// 	if (c == '\'' && !(flags & D_QUOTE))
+// 	{
+// 		flags ^= S_QUOTE;
+// 		(*index) += 1;
+// 	}
+// 	else if (c == '\"' && !(flags & S_QUOTE))
+// 	{
+// 		flags ^= D_QUOTE;
+// 		(*index) += 1;
+// 	}
+// 	return (flags);
+// }
 
 static void	_expand(t_word *word)
 {
@@ -73,8 +73,16 @@ static void	_expand(t_word *word)
 	{
 		if ((*word)[index] == '$' && !(flags & S_QUOTE))
 			var_expand(temp, *word, &index);
-		else if ((*word)[index] == '\'' || (*word)[index] == '\"')
-			flags = flags_check((*word)[index], flags, &index);
+		else if ((*word)[index] == '\'' && !(flags & D_QUOTE))
+		{
+			flags ^= S_QUOTE;
+			index++;
+		}
+		else if ((*word)[index] == '\"' && !(flags & S_QUOTE))
+		{
+			flags ^= D_QUOTE;
+			index++;
+		}
 		else
 			str_push(temp, (*word)[index++]);
 	}
