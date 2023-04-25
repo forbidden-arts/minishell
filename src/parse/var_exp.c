@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:20:03 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/04/25 14:42:56 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/25 18:51:55 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,39 @@
 static void	var_expand(t_str *self, char *word, size_t *index)
 {
 	char		*name;
-	const char	*temp;
 	size_t		name_len;
 
-	temp = "$";
-	name = NULL;
-	name_len = 0;
-	(*index) += 1;
-	if (word[(*index)] == '?')
+	if (word[++(*index)] == '?')
 	{
-		temp = ft_itoa(g_shell.status);
-		name_len += 1;
+		if (str_push_ptr(self, (const char *)ft_itoa(g_shell.status)))
+			(*index) += 1;
 	}
 	else if (word[*index] == '_' || ft_isalpha(word[*index]))
 	{
-		name_len += ft_strspn(&word[*index], AL_NUM);
+		name_len = ft_strspn(&word[*index], AL_NUM);
 		name = ft_substr(word, *index, name_len);
-		temp = env_get(name);
-	}
-	if (temp)
-		str_push_ptr(self, temp);
-	(*index) += name_len;
-	if (name)
+		if (env_get(name))
+			str_push_ptr(self, env_get(name));
 		free(name);
+		(*index) += name_len;
+	}
+	else
+		str_push(self, '$');
+}
+
+static char	flags_check(char c, char flags, size_t *index)
+{
+	if (c == '\'' && !(flags & D_QUOTE))
+	{
+		flags ^= S_QUOTE;
+		(*index) += 1;
+	}
+	else if (c == '\"' && !(flags & S_QUOTE))
+	{
+		flags ^= D_QUOTE;
+		(*index) += 1;
+	}
+	return (flags);
 }
 
 static void	_expand(t_word *word)
@@ -63,16 +73,8 @@ static void	_expand(t_word *word)
 	{
 		if ((*word)[index] == '$' && !(flags & S_QUOTE))
 			var_expand(temp, *word, &index);
-		else if ((*word)[index] == '\'' && !(flags & D_QUOTE))
-		{
-			flags ^= S_QUOTE;
-			index++;
-		}
-		else if ((*word)[index] == '\"' && !(flags & S_QUOTE))
-		{
-			flags ^= D_QUOTE;
-			index++;
-		}
+		else if ((*word)[index] == '\'' || (*word)[index] == '\"')
+			flags = flags_check((*word)[index], flags, &index);
 		else
 			str_push(temp, (*word)[index++]);
 	}
@@ -84,8 +86,6 @@ BOOL	expand(t_vector *tokens)
 	size_t	index;
 	t_token	*token;
 
-	if (!tokens)
-		return (FALSE);
 	index = 0;
 	while (index < tokens->length)
 	{
