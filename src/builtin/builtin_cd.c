@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:38:38 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/04/03 16:07:51 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/27 14:39:34 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int	_builtin_cd(const char *to)
 		perror("minishell: cd");
 		return (EXIT_FAILURE);
 	}
-	if (!env_set("OLDPWD", old_pwd_buff) || !env_set("PWD", to))
+	if (!env_set("OLDPWD", old_pwd_buff)
+		|| !env_set("PWD", getcwd((char *)to, PWD_BUFF)))
 	{
 		perror("minishell: cd");
 		return (EXIT_FAILURE);
