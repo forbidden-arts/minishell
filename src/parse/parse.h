@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:14:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/18 12:22:57 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/27 14:51:23 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ void		tokens_free(t_vector *tokens);
 t_vector	*tokenize(char *line);
 size_t		wordspan(char *input);
 
-BOOL		expand(t_vector *tokens);
+BOOL		expand_tokens(t_vector *tokens);
 
 #endif

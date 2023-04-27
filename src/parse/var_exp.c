@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_exp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:20:03 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/04/27 11:42:10 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:49:38 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 BOOL	expand_variable(t_str *str, char *word, size_t *index)
 {
 	const char	*value;
-	size_t		name_len;
 	char		*tmp;
 
 	if (word[++(*index)] == '?')
@@ -38,16 +37,17 @@ BOOL	expand_variable(t_str *str, char *word, size_t *index)
 	}
 	else if (word[*index] == '_' || ft_isalpha(word[*index]))
 	{
-		name_len = ft_strspn(&word[*index], AL_NUM);
-		tmp = ft_substr(word, *index, name_len);
+		tmp = ft_substr(word, *index, ft_strspn(&word[*index], AL_NUM));
+		if (!tmp)
+			return (FALSE);
 		value = env_get(tmp);
 		if (value && !str_push_ptr(str, value))
 			return (FALSE);
 		free(tmp);
-		(*index) += name_len;
+		(*index) += ft_strspn(&word[*index], AL_NUM);
 	}
 	else if (!str_push(str, '$'))
-		return (FALSE);	
+		return (FALSE);
 	return (TRUE);
 }
 
