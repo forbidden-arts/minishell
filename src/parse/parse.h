@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:14:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/18 11:53:19 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:51:23 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ t_token		token_from_word(t_word word);
 void		tokens_free(t_vector *tokens);
 t_vector	*tokenize(char *line);
 size_t		wordspan(char *input);
+
+BOOL		expand_tokens(t_vector *tokens);
 
 #endif
