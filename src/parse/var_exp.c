@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_exp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:20:03 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/04/25 19:19:39 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/27 11:42:10 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,74 +22,80 @@
 #define D_QUOTE 0b01
 #define S_QUOTE 0b10
 
-static void	var_expand(t_str *self, char *word, size_t *index)
+BOOL	expand_variable(t_str *str, char *word, size_t *index)
 {
-	char		*name;
+	const char	*value;
 	size_t		name_len;
+	char		*tmp;
 
 	if (word[++(*index)] == '?')
 	{
-		if (str_push_ptr(self, (const char *)ft_itoa(g_shell.status)))
-			(*index) += 1;
+		tmp = ft_itoa(g_shell.status);
+		if (!str_push_ptr(str, tmp))
+			return (FALSE);
+		(*index) += 1;
+		free(tmp);
 	}
 	else if (word[*index] == '_' || ft_isalpha(word[*index]))
 	{
 		name_len = ft_strspn(&word[*index], AL_NUM);
-		name = ft_substr(word, *index, name_len);
-		if (env_get(name))
-			str_push_ptr(self, env_get(name));
-		free(name);
+		tmp = ft_substr(word, *index, name_len);
+		value = env_get(tmp);
+		if (value && !str_push_ptr(str, value))
+			return (FALSE);
+		free(tmp);
 		(*index) += name_len;
 	}
-	else
-		str_push(self, '$');
+	else if (!str_push(str, '$'))
+		return (FALSE);	
+	return (TRUE);
 }
 
-// static char	flags_check(char c, char flags, size_t *index)
-// {
-// 	if (c == '\'' && !(flags & D_QUOTE))
-// 	{
-// 		flags ^= S_QUOTE;
-// 		(*index) += 1;
-// 	}
-// 	else if (c == '\"' && !(flags & S_QUOTE))
-// 	{
-// 		flags ^= D_QUOTE;
-// 		(*index) += 1;
-// 	}
-// 	return (flags);
-// }
-
-static void	_expand(t_word *word)
+BOOL	_expand_word(t_word *word, t_str *str)
 {
 	char	flags;
 	size_t	index;
-	t_str	*temp;
 
 	flags = 0;
 	index = 0;
-	temp = str_from_ptr("");
 	while ((*word)[index])
 	{
 		if ((*word)[index] == '$' && !(flags & S_QUOTE))
-			var_expand(temp, *word, &index);
-		else if ((*word)[index] == '\'' && !(flags & D_QUOTE))
 		{
-			flags ^= S_QUOTE;
-			index++;
-		}
-		else if ((*word)[index] == '\"' && !(flags & S_QUOTE))
-		{
-			flags ^= D_QUOTE;
-			index++;
+			if (!expand_variable(str, *word, &index))
+				return (FALSE);
 		}
 		else
-			str_push(temp, (*word)[index++]);
+		{
+			if ((*word)[index] == '\'' && !(flags & D_QUOTE))
+				flags ^= S_QUOTE;
+			else if ((*word)[index] == '\"' && !(flags & S_QUOTE))
+				flags ^= D_QUOTE;
+			else if (!str_push(str, (*word)[index]))
+				return (FALSE);
+			index++;
+		}
 	}
-	*word = str_as_ptr(temp);
+	*word = str_as_ptr(str);
+	return (TRUE);
 }
 
-BOOL	expand(t_vector *tokens)
+BOOL	expand_word(t_word *word)
+{
+	t_str	*str;
+
+	str = str_from_ptr("");
+	if (!str)
+		return (FALSE);
+	if (!_expand_word(word, str))
+	{
+		str_free(str);
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
+BOOL	expand_tokens(t_vector *tokens)
 {
 	size_t	index;
 	t_token	*token;
@@ -99,7 +105,10 @@ BOOL	expand(t_vector *tokens)
 	{
 		token = vector_get(tokens, index);
 		if (token->type == token_type_word)
-			_expand(&token->word);
+		{
+			if (!expand_word(&token->word))
+				return (FALSE);
+		}
 		index++;
 	}
 	return (TRUE);
