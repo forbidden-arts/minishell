@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:38 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/03 12:40:15 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/02 13:13:08 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 /// System errors
 # define ERR_SYSTEM 3
 /// Buffer for PWD
-# define PWD_BUFF 4096
+# define PATH_BUFFER_SIZE 4096
 
 typedef int	(*t_builtin_func)(t_vector *);
 
