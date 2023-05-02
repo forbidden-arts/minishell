@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   file_exp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:18:42 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/04/10 12:06:04 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/02 13:33:13 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dirent.h>
 #include <stdio.h>
+#include "libft.h"
 #include "main.h"
 #include "vector.h"
 #include "bool.h"
@@ -45,8 +46,16 @@ BOOL	pattern_match(const char *pattern, const char *string)
 	return (_pattern_match(pattern, string, 0, 0));
 }
 
-static t_vector	*files_try_push(t_vector *matches, char *pattern, char *string)
+static t_vector	*files_try_push(
+	t_vector *matches,
+	char *pattern,
+	const char *string)
 {
+	char	*filename;
+
+	filename = ft_strdup(string);
+	if (!filename)
+		return (matches);
 	if (pattern_match(pattern, string))
 	{
 		if (!vector_push(matches, &string))
@@ -78,7 +87,7 @@ t_vector	*filename_expansion(char *pattern)
 	while (dirent && matches)
 	{
 		matches = files_try_push(matches, pattern, dirent->d_name);
-		dirent = readdir(dirp);
+		dirent = readdir(dirp);	
 	}
 	closedir(dirp);
 	return (matches);
