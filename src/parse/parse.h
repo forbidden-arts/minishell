@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:14:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/27 14:51:23 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/02 14:01:33 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void		tokens_free(t_vector *tokens);
 t_vector	*tokenize(char *line);
 size_t		wordspan(char *input);
 
-BOOL		expand_tokens(t_vector *tokens);
+t_vector	*expand_tokens(t_vector *tokens);
+t_vector	*filename_expansion(char *pattern);
 
 #endif
