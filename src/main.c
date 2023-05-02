@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/05 17:01:58 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/04/20 19:41:53 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "shell.h"
 #include "vector.h"
 #include "bool.h"
+#include "parse.h"
 #include "main.h"
 
 static BOOL	_parse_args(char *line, t_vector *args);

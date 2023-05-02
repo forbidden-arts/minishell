@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:34:52 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/04/03 12:43:33 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/02 13:13:36 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int	builtin_pwd(t_vector *argv)
 {
-	char	cwd[PWD_BUFF];
+	char	cwd[PATH_BUFFER_SIZE];
 
 	(void)argv;
 	if (!getcwd(cwd, sizeof(cwd)))
