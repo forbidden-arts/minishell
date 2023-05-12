@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 04:28:58 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/09 14:42:29 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/12 21:33:15 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	command_free(t_command *self)
 
 	if (self)
 	{
+		if (!self->builtin && !self->name.is_path && self->name.value)
+			free(self->name.value);
 		if (self->args)
 		{
 			index = 0;

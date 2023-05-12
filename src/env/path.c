@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 21:16:47 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 11:49:14 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/12 21:28:24 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	path_free(t_path *self)
 	if (self)
 	{
 		if (self->length >= 1)
-			free(vector_get(self, 0));
+			free(*(char **)vector_get(self, 0));
 		vector_free(self);
 	}
 }
@@ -87,6 +87,7 @@ char	*path_which(t_path *self, const char *name)
 		}
 		if (access(str->buffer, X_OK) == 0)
 			return (str_as_ptr(str));
+		str_free(str);
 		index++;
 	}
 	return (NULL);
