@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 17:09:09 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/27 15:29:59 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:04:58 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 #include "shell.h"
 #include "builtin.h"
 
-static int	_builtin_unset(char *name);
+static int	_builtin_unset(char *name, t_env *env);
 
-int	builtin_unset(t_vector *argv)
+int	builtin_unset(t_vector *argv, t_env *env)
 {
 	size_t	idx;
 	int		status;
@@ -28,11 +28,11 @@ int	builtin_unset(t_vector *argv)
 	idx = 1;
 	status = 0;
 	while (idx < argv->length)
-		status |= _builtin_unset(*(char **)vector_get(argv, idx++));
+		status |= _builtin_unset(*(char **)vector_get(argv, idx++), env);
 	return (status);
 }
 
-static int	_builtin_unset(char *name)
+static int	_builtin_unset(char *name, t_env *env)
 {
 	if (!is_name(name, (size_t)-1))
 	{
@@ -41,6 +41,6 @@ static int	_builtin_unset(char *name)
 		write(STDERR_FILENO, "': not a valid identifier\n", 26);
 		return (ERR_INVALID_ARGS);
 	}
-	env_unset(name);
+	env_unset(env, name);
 	return (OK);
 }

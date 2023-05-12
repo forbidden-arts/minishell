@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   vector_clone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 14:34:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 13:00:08 by tjaasalo         ###   ########.fr       */
+/*   Created: 2023/05/08 19:40:53 by tjaasalo          #+#    #+#             */
+/*   Updated: 2023/05/08 19:45:49 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stddef.h>
-#include "shell.h"
-#include "builtin.h"
+#include <stdlib.h>
+#include "libft.h"
+#include "vector.h"
 
-int	builtin_env(t_vector *argv, t_env *env)
+t_vector	*vector_clone(const t_vector *self)
 {
-	size_t	idx;
+	t_vector	*clone;
 
-	(void)argv;
-	idx = 0;
-	while (idx < env->length)
-	{
-		printf("%s\n", *(char **)vector_get(env, idx));
-		idx++;
-	}
-	return (OK);
+	clone = vector_with_capacity(self->capacity, self->elem_size);
+	if (!clone)
+		return (NULL);
+	ft_memcpy(clone->buffer, self->buffer, self->elem_size * self->length);
+	clone->length = self->length;
+	return (clone);
 }

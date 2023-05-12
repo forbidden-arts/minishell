@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_strpbrk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 14:34:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 13:00:08 by tjaasalo         ###   ########.fr       */
+/*   Created: 2023/05/11 01:55:08 by tjaasalo          #+#    #+#             */
+/*   Updated: 2023/05/11 03:49:05 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stddef.h>
-#include "shell.h"
-#include "builtin.h"
+#include "libft.h"
+#include "ft.h"
 
-int	builtin_env(t_vector *argv, t_env *env)
+char	*ft_strpbrk(const char *string, const char *charset)
 {
-	size_t	idx;
-
-	(void)argv;
-	idx = 0;
-	while (idx < env->length)
+	while (string)
 	{
-		printf("%s\n", *(char **)vector_get(env, idx));
-		idx++;
+		if (ft_strchr(charset, *string))
+			return ((char *)string);
+		string++;
 	}
-	return (OK);
+	return (NULL);
 }

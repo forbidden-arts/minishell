@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:09:05 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/04/03 12:14:41 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/11 13:00:01 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 #include "libft.h"
 #include "builtin.h"
 
-int	builtin_echo(t_vector *argv)
+int	builtin_echo(t_vector *argv, t_env *env)
 {
 	size_t	index;
 	BOOL	n_flag;
 
+	(void)env;
 	index = 1;
 	n_flag = FALSE;
 	if (argv->length < 2)

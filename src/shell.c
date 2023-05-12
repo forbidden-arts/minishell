@@ -3,41 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 01:07:29 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/05 17:01:58 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/12 19:16:59 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <signal.h>
 #include "shell.h"
+#include "command.h"
+#include <sys/ioctl.h>
 
 t_shell	g_shell;
-
-void	shell_init(char **envp)
-{
-	env_init(envp);
-	signal(SIGINT, handle_int);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	shell_free(void)
-{
-	if (g_shell.line)
-		free(g_shell.line);
-	env_free();
-}
 
 void	handle_int(int signum)
 {
 	(void)signum;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (!g_shell.is_waiting)
+	{
+		g_shell.eof = TRUE;
+		rl_replace_line("", 0);
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		rl_on_new_line();
+	}
+}
+
+BOOL	state_init(t_state *self, char **envp)
+{
+	struct sigaction	action;
+
+	*self = (t_state){0};
+	self->env = env_init(envp);
+	if (!self->env)
+		return (FALSE);
+	self->termios_state = termios_init();
+	if (!self->termios_state && g_shell.status)
+	{
+		env_free(&self->env);
+		return (FALSE);
+	}
+	action.sa_flags = 0;
+	sigemptyset(&action.sa_mask);
+	action.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &action, NULL);
+	action.sa_handler = handle_int;
+	sigaction(SIGINT, &action, NULL);
+	g_shell.eof = FALSE;
+	return (TRUE);
+}
+
+void	state_free(t_state *self)
+{
+	if (self->termios_state)
+		free(self->termios_state);
+	if (self->env)
+		env_free(&self->env);
 }

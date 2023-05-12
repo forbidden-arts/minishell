@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   util.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 14:34:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 13:00:08 by tjaasalo         ###   ########.fr       */
+/*   Created: 2023/05/08 14:55:58 by tjaasalo          #+#    #+#             */
+/*   Updated: 2023/05/12 18:53:06 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stddef.h>
-#include "shell.h"
-#include "builtin.h"
+#ifndef UTIL_H
+# define UTIL_H
 
-int	builtin_env(t_vector *argv, t_env *env)
-{
-	size_t	idx;
+void	close_safe(int *fd);
+char	**argv_from_vector(t_vector **vector);
+void	argv_free(char **argv);
+char	**envp_from_env(const t_env *env);
 
-	(void)argv;
-	idx = 0;
-	while (idx < env->length)
-	{
-		printf("%s\n", *(char **)vector_get(env, idx));
-		idx++;
-	}
-	return (OK);
-}
+#endif

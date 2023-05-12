@@ -6,14 +6,14 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 11:51:36 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/18 11:52:11 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/01 05:55:08 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft.h"
 #include "parse.h"
 
-size_t	wordspan(char *input)
+size_t	wordspan(const char *input)
 {
 	size_t	index;
 

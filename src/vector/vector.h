@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:49:14 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 05:07:00 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/10 22:14:51 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_vector	*vector_with_capacity(size_t capacity, size_t elem_size);
 t_vector	*vector_grow(t_vector *self);
 void		vector_free(t_vector *vector);
 BOOL		vector_push(t_vector *self, void *elem_ptr);
-void		*vector_get(t_vector *self, size_t index);
+void		*vector_get(const t_vector *self, size_t index);
 
 ///			Searches for an element in the vector, returning its index.
 ///
@@ -51,5 +51,33 @@ ssize_t		vector_position(
 ///			@param self Non-null pointer to a vector.
 ///			@param index Index of the element to be removed.
 void		vector_swap_remove(t_vector *self, size_t index);
+
+///			Reserves capacity for at least `additional_capacity` more elements
+///			in the vector.
+///
+/// 		@param self Non-null pointer to a vector.
+///			@param additional_capacity Number of additional elements for which
+///			to reserve capacity.
+///
+///			@return	TRUE on success FALSE on failure.
+///
+///			@warning This function is unsafe when used with unreasonably large
+///			vectors.
+BOOL		vector_reserve(t_vector *self, size_t additional_capacity);
+
+///			Clones a vector.
+///
+///			@param self Non-null pointer to a vector.
+///
+///			@return The newly created clone or NULL on failure.
+t_vector	*vector_clone(const t_vector *self);
+
+///			Extends the vector `self` by concatenating it with `other`.
+///	
+///			@param self Non-null pointer to a vector.
+///			@param other Non-null pointer to a vector compatible with self.
+///	
+///			@return TRUE on success FALSE on failure.
+BOOL		vector_extend(t_vector *self, const t_vector *other);
 
 #endif
