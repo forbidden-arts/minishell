@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:49:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/20 14:09:11 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:28:03 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	vector_free(t_vector *vector)
 	}
 }
 
-void	*vector_get(t_vector *self, size_t index)
+void	*vector_get(const t_vector *self, size_t index)
 {
 	if (!self || index >= self->length)
 		return (NULL);

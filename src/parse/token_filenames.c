@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_exp.c                                         :+:      :+:    :+:   */
+/*   token_filenames.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:18:42 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/02 13:33:13 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:16:25 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,51 @@
 #include "libft.h"
 #include "main.h"
 #include "vector.h"
+#include "parse.h"
 #include "bool.h"
+
+static t_vector	*files_try_push(
+					t_tokens *matches,
+					const char *pattern,
+					const char *string);
+static BOOL		_pattern_match(
+					const char *pattern,
+					const char *string,
+					int idx_pat,
+					int idx_str);
+static BOOL		pattern_match(const char *pattern, const char *string);
+
+t_tokens	*token_filenames(const char *pattern)
+{
+	DIR				*dirp;
+	t_tokens		*filenames;
+	struct dirent	*dirent;
+
+	filenames = vector_with_capacity(1, sizeof(t_token));
+	if (!filenames)
+		return (NULL);
+	dirp = opendir(".");
+	if (!dirp)
+	{
+		tokens_free(filenames);
+		perror("minishell");
+		return (NULL);
+	}
+	dirent = readdir(dirp);
+	while (dirent && filenames)
+	{
+		if (dirent->d_name[0] != '.')
+			filenames = files_try_push(filenames, pattern, dirent->d_name);
+		dirent = readdir(dirp);
+	}
+	closedir(dirp);
+	return (filenames);
+}
+
+static BOOL	pattern_match(const char *pattern, const char *string)
+{
+	return (_pattern_match(pattern, string, 0, 0));
+}
 
 static BOOL	_pattern_match(
 	const char *pattern,
@@ -41,54 +85,24 @@ static BOOL	_pattern_match(
 		return (_pattern_match(pattern, string, idx_pat + 1, idx_str + 1));
 }
 
-BOOL	pattern_match(const char *pattern, const char *string)
-{
-	return (_pattern_match(pattern, string, 0, 0));
-}
-
 static t_vector	*files_try_push(
-	t_vector *matches,
-	char *pattern,
+	t_tokens *matches,
+	const char *pattern,
 	const char *string)
 {
-	char	*filename;
+	t_token	token;
 
-	filename = ft_strdup(string);
-	if (!filename)
-		return (matches);
 	if (pattern_match(pattern, string))
 	{
-		if (!vector_push(matches, &string))
+		token.type = token_type_word;
+		token.word = ft_strdup(string);
+		if (!token.word)
+			return (NULL);
+		if (!vector_push(matches, &token))
 		{
-			vector_free(matches);
+			tokens_free(matches);
 			return (NULL);
 		}
 	}
-	return (matches);
-}
-
-t_vector	*filename_expansion(char *pattern)
-{
-	DIR				*dirp;
-	t_vector		*matches;
-	struct dirent	*dirent;
-
-	matches = vector_with_capacity(1, sizeof(char *));
-	if (!matches)
-		return (NULL);
-	dirp = opendir(".");
-	if (!dirp)
-	{
-		vector_free(matches);
-		perror("minishell");
-		return (NULL);
-	}
-	dirent = readdir(dirp);
-	while (dirent && matches)
-	{
-		matches = files_try_push(matches, pattern, dirent->d_name);
-		dirent = readdir(dirp);	
-	}
-	closedir(dirp);
 	return (matches);
 }

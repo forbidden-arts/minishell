@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:34:52 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/02 13:13:36 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:00:56 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 #include "libft.h"
 #include "builtin.h"
 
-int	builtin_pwd(t_vector *argv)
+int	builtin_pwd(t_vector *argv, t_env *env)
 {
 	char	cwd[PATH_BUFFER_SIZE];
 
+	(void)env;
 	(void)argv;
 	if (!getcwd(cwd, sizeof(cwd)))
 	{

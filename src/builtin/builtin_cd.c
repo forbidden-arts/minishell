@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:38:38 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/02 13:16:57 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:05:54 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ static int	_error(void)
 	return (EXIT_FAILURE);
 }
 
-static const char	*parse_path(t_vector *argv)
+static const char	*parse_path(t_vector *argv, const t_env *env)
 {
 	const char	*path;
 
 	if (argv->length <= 1 || **(char **)vector_get(argv, 1) == '\0')
-		path = env_get("HOME");
+		path = env_get(env, "HOME");
 	else
 		path = *(char **)vector_get(argv, 1);
 	return (path);
 }
 
-static int	_builtin_cd(const char *to)
+static int	_builtin_cd(const char *to, t_env *env)
 {
 	char	buffer[PATH_BUFFER_SIZE];
 
@@ -42,18 +42,18 @@ static int	_builtin_cd(const char *to)
 		return (_error());
 	if (chdir(to) == -1)
 		return (_error());
-	if (!env_set("OLDPWD", buffer))
+	if (!env_set(env, "OLDPWD", buffer))
 		return (_error());
-	if (!env_set("PWD", getcwd(buffer, PATH_BUFFER_SIZE)))
+	if (!env_set(env, "PWD", getcwd(buffer, PATH_BUFFER_SIZE)))
 		return (_error());
 	return (OK);
 }
 
-int	builtin_cd(t_vector *argv)
+int	builtin_cd(t_vector *argv, t_env *env)
 {
 	const char	*to;
 
-	to = parse_path(argv);
+	to = parse_path(argv, env);
 	if (!to)
 	{
 		write(STDERR_FILENO, "minishell: cd: HOME not set\n", 28);
@@ -61,9 +61,9 @@ int	builtin_cd(t_vector *argv)
 	}
 	if (ft_strncmp(to, "-", 1) == 0)
 	{
-		to = env_get("OLDPWD");
+		to = env_get(env, "OLDPWD");
 		if (to)
 			printf("%s\n", to);
 	}
-	return (_builtin_cd(to));
+	return (_builtin_cd(to, env));
 }

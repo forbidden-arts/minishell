@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/05 17:01:58 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/12 17:19:31 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ static int	int_min(void)
 	return ((int)(((((unsigned int)-1) / 2) + 1)));
 }
 
-int	builtin_exit(t_vector *argv)
+int	builtin_exit(t_vector *argv, t_env *env)
 {
 	const char	*err_str;
 	int			exit_code;
 	char		*arg;
 
+	(void)env;
 	err_str = NULL;
 	write(STDERR_FILENO, "exit\n", 5);
 	if (!argv || argv->length <= 1)
@@ -43,14 +44,11 @@ int	builtin_exit(t_vector *argv)
 		exit_code = ft_strtonum(arg, int_min(), int_max(), &err_str);
 		if (err_str)
 		{
-			exit_code = EXIT_FAILURE;
+			exit_code = EXIT_FAILURE | EXIT;
 			write(STDERR_FILENO, "minishell: exit: ", 17);
 			write(STDERR_FILENO, arg, ft_strlen(arg));
 			write(STDERR_FILENO, ": numeric argument required\n", 28);
 		}
 	}
-	vector_free(argv);
-	shell_free();
-	exit(exit_code);
-	return (OK);
+	return (exit_code | EXIT);
 }

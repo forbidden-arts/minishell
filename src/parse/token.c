@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:14:36 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/18 11:54:47 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/03 17:48:33 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,24 @@
 #include "libft.h"
 #include "parse.h"
 
-static BOOL	_tokenize(char *line, t_vector *tokens);
+static BOOL	_tokenize(const char *line, t_vector *tokens);
 
-t_token	token_from_word(t_word word)
+t_tokens	*tokenize(const char *line)
 {
-	t_token	token;
+	t_vector		*tokens;
 
-	token.type = token_type_word;
-	token.word = word;
-	return (token);
+	tokens = vector_with_capacity(1, sizeof(t_token));
+	if (!tokens)
+		return (NULL);
+	if (!_tokenize(line, tokens))
+	{
+		tokens_free(tokens);
+		return (NULL);
+	}
+	return (tokens);
 }
 
-t_token	token_from_operator(t_operator operator)
-{
-	t_token	token;
-
-	token.type = token_type_operator;
-	token.operator = operator;
-	return (token);
-}
-
-static BOOL	_tokenize(char *line, t_vector *tokens)
+static BOOL	_tokenize(const char *line, t_vector *tokens)
 {
 	size_t	index;
 	t_token	token;
@@ -62,22 +59,7 @@ static BOOL	_tokenize(char *line, t_vector *tokens)
 	return (TRUE);
 }
 
-t_vector	*tokenize(char *line)
-{
-	t_vector		*tokens;
-
-	tokens = vector_with_capacity(1, sizeof(t_token));
-	if (!tokens)
-		return (NULL);
-	if (!_tokenize(line, tokens))
-	{
-		tokens_free(tokens);
-		return (NULL);
-	}
-	return (tokens);
-}
-
-void	tokens_free(t_vector *tokens)
+void	tokens_free(t_tokens *tokens)
 {
 	size_t	index;
 	t_token	*token;
@@ -91,4 +73,22 @@ void	tokens_free(t_vector *tokens)
 		index++;
 	}
 	vector_free(tokens);
+}
+
+t_token	token_from_word(t_word word)
+{
+	t_token	token;
+
+	token.type = token_type_word;
+	token.word = word;
+	return (token);
+}
+
+t_token	token_from_operator(t_operator operator)
+{
+	t_token	token;
+
+	token.type = token_type_operator;
+	token.operator = operator;
+	return (token);
 }

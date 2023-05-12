@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 08:48:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/31 11:31:26 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/11 13:06:25 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_builtin_func	builtin_get(char *name)
 	return (NULL);
 }
 
-int	builtin_exec(t_vector *argv)
+int	builtin_exec(t_vector *argv, t_env *env)
 {
 	char			*name;
 	t_builtin_func	builtin;
@@ -50,5 +50,5 @@ int	builtin_exec(t_vector *argv)
 	builtin = builtin_get(name);
 	if (!builtin)
 		return (ERR_NOT_FOUND);
-	return (builtin(argv));
+	return (builtin(argv, env));
 }

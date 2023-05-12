@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:24:07 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/23 17:12:12 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:37:57 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 static BOOL	cmp(void *item, void *m);
 
-ssize_t	env_position(t_vector *env_vector, t_env_match *match)
+ssize_t	env_position(const t_env *env, t_env_match *match)
 {
-	return (vector_position(env_vector, cmp, (void *)match));
+	return (vector_position((t_vector *)env, cmp, (void *)match));
 }
 
 static BOOL	cmp(void *item, void *m)

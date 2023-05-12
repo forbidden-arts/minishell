@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   token_iter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 14:34:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 13:00:08 by tjaasalo         ###   ########.fr       */
+/*   Created: 2023/04/22 17:07:47 by tjaasalo          #+#    #+#             */
+/*   Updated: 2023/05/01 05:58:46 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stddef.h>
-#include "shell.h"
-#include "builtin.h"
+#include "parse.h"
 
-int	builtin_env(t_vector *argv, t_env *env)
+void	tokens_iter(t_tokens_iter *iterator, t_tokens *tokens)
 {
-	size_t	idx;
+	iterator->tokens = tokens;
+	iterator->index = 0;
+}
 
-	(void)argv;
-	idx = 0;
-	while (idx < env->length)
-	{
-		printf("%s\n", *(char **)vector_get(env, idx));
-		idx++;
-	}
-	return (OK);
+t_token	*tokens_next(t_tokens_iter *iterator)
+{
+	if (iterator->index < iterator->tokens->length)
+		return (vector_get(iterator->tokens, iterator->index++));
+	return (NULL);
 }

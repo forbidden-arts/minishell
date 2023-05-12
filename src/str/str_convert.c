@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_convert.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:22:02 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/20 14:46:34 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/11 15:38:39 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,9 @@ t_str	*str_from_ptr(const char *str)
 
 char	*str_as_ptr(t_str *self)
 {
-	return (self->buffer);
+	char	*str;
+
+	str = self->buffer;
+	free(self);
+	return (str);
 }

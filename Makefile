@@ -37,21 +37,39 @@ ft_strspn.c 		\
 ft_strcspn.c 		\
 ft_strtonum.c 		\
 ft_strtok.c 		\
+ft_strpbrk.c		\
 vector.c 			\
 vector_remove.c 	\
+vector_reserve.c	\
 vector_position.c 	\
+vector_clone.c		\
+vector_extend.c		\
 shell.c 			\
 env.c 				\
 env_util.c 			\
 env_ops.c 			\
+path.c				\
 str.c				\
 str_push.c			\
 str_convert.c		\
-file_exp.c			\
 token.c				\
+token_iter.c		\
+token_filenames.c	\
+tokens_expand.c		\
+tokens_validate.c	\
 read.c				\
 word.c				\
-var_exp.c			\
+word_expand.c		\
+command.c			\
+commands.c			\
+command_init.c		\
+command_exec.c		\
+command_run.c		\
+command_wait.c		\
+command_redirect.c	\
+command_utils.c		\
+util.c				\
+termios.c			\
 main.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
@@ -71,6 +89,12 @@ $(NAME): $(OBJS) | $(LIBFT)
 
 $(OBJ_DIR)%.o: %.c | obj_dir
 	$(CC) $(CFLAGS) -c -o $@ $<
+
+run: all
+	./$(NAME)
+
+leaks: all
+	leaks -q --atExit -- ./$(NAME)
 
 obj_dir:
 	@mkdir -p $(OBJ_DIR)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/04/20 19:41:53 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/12 19:18:10 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,61 +21,96 @@
 #include "vector.h"
 #include "bool.h"
 #include "parse.h"
+#include "parse.h"
+#include "command.h"
+#include <termios.h>
+#include <signal.h>
+#include <unistd.h>
 #include "main.h"
 
-static BOOL	_parse_args(char *line, t_vector *args);
+char	*prompt(t_state *state)
+{
+	char	*line;
+
+	termios_echoctl_disable(state->termios_state);
+	line = readline("minishell> ");
+	termios_echoctl_reset(state->termios_state);
+	return (line);
+}
+
+BOOL	_parse(t_state *state, t_parser *parser)
+{
+	if (!parser->line)
+	{
+		g_shell.status = EXIT;
+		return (FALSE);
+	}
+	if (!*parser->line)
+		return (TRUE);
+	add_history(parser->line);
+	parser->tokens = tokenize(parser->line);
+	if (!parser->tokens)
+		return (FALSE);
+	if (!tokens_expand(&parser->tokens, state->env))
+		return (FALSE);
+	parser->commands = commands_from_tokens(parser->tokens);
+	if (!parser->commands)
+		return (FALSE);
+	if (!commands_init(parser->tokens, parser->commands))
+		return (FALSE);
+	return (TRUE);
+}
+
+t_vector	*parse(t_state *state, char *line)
+{
+	t_parser	parser;
+	BOOL		ok;
+
+	parser = (t_parser){0};
+	parser.line = line;
+	ok = _parse(state, &parser);
+	if (parser.line)
+		free(parser.line);
+	if (parser.tokens)
+		tokens_free(parser.tokens);
+	if (!ok)
+	{
+		if (parser.commands)
+			commands_free(parser.commands);
+		return (NULL);
+	}
+	return (parser.commands);
+}
+
+// TODO: Does this function need a return value? Do something if exec fails?
+BOOL	run(t_state *state)
+{
+	t_vector	*commands;
+
+	commands = parse(state, prompt(state));
+	if (!commands)
+		return (FALSE);
+	if (commands_exec(commands, state->env))
+		g_shell.status = commands_status(commands);
+	commands_free(commands);
+	return (TRUE);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_vector	*args;
+	t_state	state;
 
 	(void)argc;
 	(void)argv;
-	shell_init(envp);
+	if (!state_init(&state, envp))
+		return (g_shell.status);
 	while (1)
 	{
-		g_shell.line = readline("> ");
-		if (!g_shell.line)
-			builtin_exit(NULL);
-		if (g_shell.line[0])
-			add_history(g_shell.line);
-		args = parse_args(g_shell.line);
-		if (args)
-			g_shell.status = builtin_exec(args);
-		vector_free(args);
-		free(g_shell.line);
-		g_shell.line = NULL;
+		run(&state);
+		if (g_shell.status & EXIT)
+			break ;
 	}
+	state_free(&state);
 	rl_clear_history();
-	shell_free();
-	return (0);
-}
-
-t_vector	*parse_args(char *line)
-{
-	t_vector	*args;
-
-	args = vector_with_capacity(1, sizeof(char *));
-	if (!args)
-		return (NULL);
-	if (!_parse_args(line, args))
-	{
-		vector_free(args);
-		return (NULL);
-	}
-	return (args);
-}
-
-static BOOL	_parse_args(char *line, t_vector *args)
-{
-	char		*arg;
-
-	arg = ft_strtok(line, " ");
-	while (arg)
-	{
-		if (!vector_push(args, &arg))
-			return (FALSE);
-		arg = ft_strtok(NULL, " ");
-	}
-	return (TRUE);
+	return (g_shell.status & (~EXIT));
 }

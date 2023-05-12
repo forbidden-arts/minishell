@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 11:36:26 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/03/19 00:55:27 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/11 02:04:53 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,20 @@ long long	ft_strtonum(
 				long long max,
 				const char **errstr);
 char		*ft_strtok(char *restrict str, const char *restrict delim);
+
+///			Locate multiple characters in string.
+///	
+///			@details
+///			Locates in the null-terminated string `string` the first occurrence
+///			of any character in the string `charset` and returns a pointer to
+///			this character. If no characters from `charset` occur anywhere in
+///			`string`, NULL is returned.
+///	
+///			@param string Non-null string to search.
+///			@param charset Non-null string defining the characters to search.
+///	
+///			@return Pointer to the first occurrence in `string` of any character
+///			in `charset`, or NULL if no occurrences are found.
+char		*ft_strpbrk(const char *string, const char *charset);
 
 #endif
