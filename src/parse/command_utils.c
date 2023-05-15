@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:59:23 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 19:04:51 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/12 21:34:59 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,15 @@ BOOL	command_resolve(t_command *self, const t_env *env)
 			return (FALSE);
 		}
 		self->name.value = path_which(path, name);
+		path_free(path);
 		if (!self->name.value)
 			return (_error_cmd_not_found(name));
+		return (TRUE);
 	}
-	else
+	if (access(self->name.value, X_OK))
 	{
-		if (access(self->name.value, X_OK))
-		{
-			perror("minishell");
-			return (FALSE);
-		}
+		perror("minishell");
+		return (FALSE);
 	}
 	return (TRUE);
 }
