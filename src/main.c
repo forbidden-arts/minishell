@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 19:18:10 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/16 08:18:51 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,76 +21,50 @@
 #include "vector.h"
 #include "bool.h"
 #include "parse.h"
-#include "parse.h"
 #include "command.h"
 #include <termios.h>
 #include <signal.h>
 #include <unistd.h>
+#include "error.h"
 #include "main.h"
 
-char	*prompt(t_state *state)
+typedef struct s_line
 {
-	char	*line;
+	char	*inner;
+	BOOL	is_eof;
+	BOOL	is_empty;
+}	t_line;
 
-	termios_echoctl_disable(state->termios_state);
-	line = readline("minishell> ");
-	termios_echoctl_reset(state->termios_state);
+t_line	prompt(const t_termios *termios_state)
+{
+	t_line	line;
+
+	line = (t_line){0};
+	termios_echoctl_disable(termios_state);
+	line.inner = readline("minishell> ");
+	termios_echoctl_reset(termios_state);
+	if (!line.inner)
+		line.is_eof = TRUE;
+	else if (!*(line.inner))
+	{
+		line.is_empty = TRUE;
+		free(line.inner);
+	}
 	return (line);
 }
 
-BOOL	_parse(t_state *state, t_parser *parser)
-{
-	if (!parser->line)
-	{
-		g_shell.status = EXIT;
-		return (FALSE);
-	}
-	if (!*parser->line)
-		return (TRUE);
-	add_history(parser->line);
-	parser->tokens = tokenize(parser->line);
-	if (!parser->tokens)
-		return (FALSE);
-	if (!tokens_expand(&parser->tokens, state->env))
-		return (FALSE);
-	parser->commands = commands_from_tokens(parser->tokens);
-	if (!parser->commands)
-		return (FALSE);
-	if (!commands_init(parser->tokens, parser->commands))
-		return (FALSE);
-	return (TRUE);
-}
-
-t_vector	*parse(t_state *state, char *line)
-{
-	t_parser	parser;
-	BOOL		ok;
-
-	parser = (t_parser){0};
-	parser.line = line;
-	ok = _parse(state, &parser);
-	if (parser.line)
-		free(parser.line);
-	if (parser.tokens)
-		tokens_free(parser.tokens);
-	if (!ok)
-	{
-		if (parser.commands)
-			commands_free(parser.commands);
-		return (NULL);
-	}
-	return (parser.commands);
-}
-
 // TODO: Does this function need a return value? Do something if exec fails?
-BOOL	run(t_state *state)
+BOOL	run(const char *line, t_env *env)
 {
 	t_vector	*commands;
 
-	commands = parse(state, prompt(state));
+	add_history(line);
+	g_shell.status = parse(line, env, &commands);
+	if (g_shell.status != EXIT_SUCCESS)
+		return (FALSE);
 	if (!commands)
 		return (FALSE);
-	if (commands_exec(commands, state->env))
+	if (commands_exec(commands, env))
 		g_shell.status = commands_status(commands);
 	commands_free(commands);
 	return (TRUE);
@@ -99,6 +73,7 @@ BOOL	run(t_state *state)
 int	main(int argc, char **argv, char **envp)
 {
 	t_state	state;
+	t_line	line;
 
 	(void)argc;
 	(void)argv;
@@ -106,11 +81,17 @@ int	main(int argc, char **argv, char **envp)
 		return (g_shell.status);
 	while (1)
 	{
-		run(&state);
-		if (g_shell.status & EXIT)
+		line = prompt(state.termios_state);
+		if (line.is_eof)
+			break ;
+		if (line.is_empty)
+			continue ;
+		run(line.inner, state.env);
+		free(line.inner);
+		if (g_shell.status & EXIT_FATAL)
 			break ;
 	}
 	state_free(&state);
 	rl_clear_history();
-	return (g_shell.status & (~EXIT));
+	return (g_shell.status & (~EXIT_FATAL));
 }

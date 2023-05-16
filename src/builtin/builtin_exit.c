@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 17:19:31 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/16 08:19:40 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "libft.h"
 #include "ft.h"
 #include "shell.h"
+#include "error.h"
 #include "builtin.h"
 
 static int	int_max(void)
@@ -44,11 +45,11 @@ int	builtin_exit(t_vector *argv, t_env *env)
 		exit_code = ft_strtonum(arg, int_min(), int_max(), &err_str);
 		if (err_str)
 		{
-			exit_code = EXIT_FAILURE | EXIT;
+			exit_code = EXIT_FAILURE | EXIT_FATAL;
 			write(STDERR_FILENO, "minishell: exit: ", 17);
 			write(STDERR_FILENO, arg, ft_strlen(arg));
 			write(STDERR_FILENO, ": numeric argument required\n", 28);
 		}
 	}
-	return (exit_code | EXIT);
+	return (exit_code | EXIT_FATAL);
 }

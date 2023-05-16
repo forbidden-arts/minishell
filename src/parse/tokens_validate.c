@@ -6,11 +6,13 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 04:00:17 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 05:10:53 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/16 05:03:15 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "shell.h"
+#include "error.h"
 #include "parse.h"
 
 static BOOL	_tokens_validate(const t_tokens *tokens);
@@ -19,12 +21,11 @@ static BOOL	validate_operator(
 				const t_operator operator,
 				const t_token *previous);
 
-BOOL	tokens_validate(const t_tokens *tokens)
+int	tokens_validate(const t_tokens *tokens)
 {
 	if (_tokens_validate(tokens))
-		return (TRUE);
-	g_shell.status = ERR_SYNTAX;
-	return (FALSE);
+		return (EXIT_SUCCESS);
+	return (EXIT_SYNTAX);
 }
 
 static BOOL	_tokens_validate(const t_tokens *tokens)

@@ -6,26 +6,17 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 07:13:13 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 14:53:56 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/16 06:15:35 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
 #include "libft.h"
+#include "error.h"
 #include "command.h"
 
-BOOL	command_arg(t_command *self, const char *arg)
-{
-	if (!vector_push(self->args, &arg))
-	{
-		perror("minishell");
-		return (FALSE);
-	}
-	return (TRUE);
-}
-
-BOOL	command_operator(
+void	command_operator(
 	t_command *self,
 	t_operator operator,
 	t_tokens_iter *iter)
@@ -33,11 +24,6 @@ BOOL	command_operator(
 	t_token	*token;
 
 	token = tokens_next(iter);
-	if (!token || token->type != token_type_word)
-	{
-		write(STDERR_FILENO, "minishell: syntax error\n", 24);
-		return (FALSE);
-	}
 	if (operator == operator_infile)
 		command_redirect_input(self, token->word, FALSE);
 	else if (operator == operator_heredoc)
@@ -46,23 +32,22 @@ BOOL	command_operator(
 		command_redirect_output(self, token->word, FALSE);
 	else if (operator == operator_outfile_append)
 		command_redirect_output(self, token->word, TRUE);
-	return (TRUE);
 }
 
-BOOL	command_name(t_command *self)
+int	command_name(t_command *self)
 {
 	if (self->args->length < 1)
-		return (FALSE);
+		return (EXIT_SYNTAX);
 	self->name.value = *(char **)vector_get(self->args, 0);
 	self->name.is_path = TRUE;
 	if (ft_strchr(self->name.value, '/'))
-		return (TRUE);
+		return (EXIT_SUCCESS);
 	self->name.is_path = FALSE;
 	self->builtin = builtin_get(self->name.value);
-	return (TRUE);
+	return (EXIT_SUCCESS);
 }
 
-BOOL	command_init(t_command *self, t_tokens_iter *tokens)
+int	command_init(t_command *self, t_tokens_iter *tokens)
 {
 	t_token	*token;
 	char	*arg;
@@ -74,36 +59,38 @@ BOOL	command_init(t_command *self, t_tokens_iter *tokens)
 		{
 			arg = ft_strdup(token->word);
 			if (!arg)
-				return (FALSE);
-			if (!command_arg(self, arg))
+				return (EXIT_ERRNO);
+			if (!vector_push(self->args, &arg))
 			{
 				free(arg);
-				return (FALSE);
+				return (EXIT_ERRNO);
 			}
 		}
 		else if (token->operator == operator_pipe)
 			break ;
-		else if (!command_operator(self, token->operator, tokens))
-			return (FALSE);
+		else
+			command_operator(self, token->operator, tokens);
 		token = tokens_next(tokens);
 	}
 	return (command_name(self));
 }
 
-BOOL	commands_init(t_tokens *tokens, t_vector *commands)
+int	commands_init(t_tokens *tokens, t_vector *commands)
 {
 	t_tokens_iter	iter;
 	size_t			index;
 	t_command		*command;
+	int				status;
 
 	index = 0;
 	tokens_iter(&iter, tokens);
 	while (index < commands->length)
 	{
 		command = vector_get(commands, index);
-		if (!command_init(command, &iter))
-			return (FALSE);
+		status = command_init(command, &iter);
+		if (status != EXIT_SUCCESS)
+			return (status);
 		index++;
 	}
-	return (TRUE);
+	return (EXIT_SUCCESS);
 }

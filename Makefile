@@ -69,7 +69,9 @@ command_wait.c		\
 command_redirect.c	\
 command_utils.c		\
 util.c				\
+error.c				\
 termios.c			\
+parse.c				\
 main.c
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)

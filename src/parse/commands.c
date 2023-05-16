@@ -6,18 +6,20 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 07:07:03 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/09 14:59:55 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/16 05:46:34 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdlib.h>
+#include "error.h"
 #include "command.h"
 
 static BOOL		_commands_from_tokens(t_vector *commands);
 static size_t	pipe_count(t_tokens *tokens);
 static BOOL		pipe_connect(t_command *lhs, t_command *rhs);
 
-t_vector	*commands_from_tokens(t_tokens *tokens)
+int	commands_from_tokens(t_tokens *tokens, t_vector **self)
 {
 	size_t		commands_length;
 	t_vector	*commands;
@@ -25,13 +27,14 @@ t_vector	*commands_from_tokens(t_tokens *tokens)
 	commands_length = pipe_count(tokens) + 1;
 	commands = vector_with_capacity(commands_length, sizeof(t_command));
 	if (!commands)
-		return (NULL);
+		return (EXIT_ERRNO);
 	if (!_commands_from_tokens(commands))
 	{
 		commands_free(commands);
-		return (NULL);
+		return (EXIT_ERRNO);
 	}
-	return (commands);
+	*self = commands;
+	return (EXIT_SUCCESS);
 }
 
 static BOOL	_commands_from_tokens(t_vector *commands)

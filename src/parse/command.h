@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 03:47:22 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 19:04:12 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/16 05:57:34 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ typedef struct s_command
 BOOL		command_new(t_command *self);
 void		command_free(t_command *self);
 
-t_vector	*commands_from_tokens(t_tokens *tokens);
+int			commands_from_tokens(t_tokens *tokens, t_vector **commands);
 void		commands_free(t_vector *self);
 
-BOOL		commands_init(t_tokens *tokens, t_vector *commands);
+int			commands_init(t_tokens *tokens, t_vector *commands);
 BOOL		commands_exec(t_vector *commands, t_env *env);
 BOOL		command_run_builtin(t_command *self, t_env *env);
 void		command_redirect(t_command *self);
