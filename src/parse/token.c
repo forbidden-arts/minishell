@@ -6,36 +6,40 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:14:36 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/03 17:48:33 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:22:40 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ft.h"
 #include "libft.h"
+#include "error.h"
 #include "parse.h"
 
-static BOOL	_tokenize(const char *line, t_vector *tokens);
+static int	_tokenize(const char *line, t_vector *tokens);
 
-t_tokens	*tokenize(const char *line)
+int	tokenize(const char *line, t_tokens **tokens)
 {
-	t_vector		*tokens;
+	int				status;
 
-	tokens = vector_with_capacity(1, sizeof(t_token));
-	if (!tokens)
-		return (NULL);
-	if (!_tokenize(line, tokens))
+	*tokens = vector_with_capacity(1, sizeof(t_token));
+	if (!*tokens)
+		return (EXIT_ERRNO);
+	status = _tokenize(line, *tokens);
+	if (status != EXIT_SUCCESS)
 	{
-		tokens_free(tokens);
-		return (NULL);
+		tokens_free(*tokens);
+		*tokens = NULL;
+		return (status);
 	}
-	return (tokens);
+	return (EXIT_SUCCESS);
 }
 
-static BOOL	_tokenize(const char *line, t_vector *tokens)
+static int	_tokenize(const char *line, t_vector *tokens)
 {
 	size_t	index;
 	t_token	token;
+	int		status;
 
 	index = 0;
 	while (TRUE)
@@ -44,19 +48,15 @@ static BOOL	_tokenize(const char *line, t_vector *tokens)
 		if (!line[index])
 			break ;
 		if (ft_strchr(CHARSET_META, line[index]))
-		{
-			if (!read_operator(line, &index, &token))
-				return (FALSE);
-		}
+			status = read_operator(line, &index, &token);
 		else
-		{
-			if (!read_word(line, &index, &token))
-				return (FALSE);
-		}
-		if (!vector_push(tokens, &token))
-			return (FALSE);
+			status = read_word(line, &index, &token);
+		if (status == EXIT_SUCCESS && !vector_push(tokens, &token))
+			status = EXIT_ERRNO;
+		if (status != EXIT_SUCCESS)
+			return (status);
 	}
-	return (TRUE);
+	return (EXIT_SUCCESS);
 }
 
 void	tokens_free(t_tokens *tokens)

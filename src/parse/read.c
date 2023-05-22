@@ -6,31 +6,30 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 11:35:38 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 05:15:38 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/16 03:13:39 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "error.h"
 #include "parse.h"
 
-// TODO: Behavior of unknown metacharacters?
-
-BOOL	read_word(const char *input, size_t *index, t_token *token)
+int	read_word(const char *input, size_t *index, t_token *token)
 {
 	size_t	length;
 
 	token->type = token_type_word;
 	length = wordspan(&input[*index]);
 	if (!length)
-		return (FALSE);
+		return (EXIT_SYNTAX);
 	token->word = ft_substr(input, *index, length);
 	if (!token->word)
-		return (FALSE);
+		return (EXIT_ERRNO);
 	(*index) += length;
-	return (TRUE);
+	return (EXIT_SUCCESS);
 }
 
-BOOL	read_operator(const char *input, size_t *index, t_token *token)
+int	read_operator(const char *input, size_t *index, t_token *token)
 {
 	token->type = token_type_operator;
 	if (input[*index] == '|')
@@ -40,12 +39,14 @@ BOOL	read_operator(const char *input, size_t *index, t_token *token)
 	else if (input[*index] == '>')
 		token->operator = operator_outfile_truncate;
 	else
-		return (FALSE);
+		return (EXIT_SYNTAX);
 	if (input[*index] == input[*index + 1])
 	{
 		token->operator += 1;
 		(*index)++;
+		if (input[*index] == '|')
+			return (EXIT_SYNTAX);
 	}
 	(*index)++;
-	return (TRUE);
+	return (EXIT_SUCCESS);
 }

@@ -6,12 +6,13 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 06:00:51 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 19:10:48 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/16 08:22:45 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+#include "error.h"
 #include "shell.h"
 
 t_termios	*termios_init(void)
@@ -21,7 +22,7 @@ t_termios	*termios_init(void)
 	termios_state = malloc(sizeof(struct termios));
 	if (!termios_state)
 	{
-		g_shell.status = ERR_ERRNO;
+		g_shell.status = EXIT_ERRNO;
 		return (NULL);
 	}
 	if (tcgetattr(STDIN_FILENO, termios_state))

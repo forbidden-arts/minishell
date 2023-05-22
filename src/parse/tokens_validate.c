@@ -6,11 +6,13 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 04:00:17 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 05:10:53 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:54:26 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "shell.h"
+#include "error.h"
 #include "parse.h"
 
 static BOOL	_tokens_validate(const t_tokens *tokens);
@@ -19,12 +21,11 @@ static BOOL	validate_operator(
 				const t_operator operator,
 				const t_token *previous);
 
-BOOL	tokens_validate(const t_tokens *tokens)
+int	tokens_validate(const t_tokens *tokens)
 {
 	if (_tokens_validate(tokens))
-		return (TRUE);
-	g_shell.status = ERR_SYNTAX;
-	return (FALSE);
+		return (EXIT_SUCCESS);
+	return (EXIT_SYNTAX);
 }
 
 static BOOL	_tokens_validate(const t_tokens *tokens)
@@ -34,19 +35,20 @@ static BOOL	_tokens_validate(const t_tokens *tokens)
 	t_token	*previous;
 
 	index = 0;
-	previous = NULL;
 	if (tokens->length < 1)
 		return (TRUE);
 	head = vector_get(tokens, index++);
 	if (!validate_first(head))
 		return (FALSE);
+	previous = head;
 	while (index < tokens->length)
 	{
 		head = vector_get(tokens, index++);
-		if (head->type == token_type_word)
-			continue ;
-		if (!validate_operator(head->operator, previous))
-			return (FALSE);
+		if (head->type == token_type_operator)
+		{
+			if (!validate_operator(head->operator, previous))
+				return (FALSE);
+		}
 		previous = head;
 	}
 	if (head->type == token_type_operator)

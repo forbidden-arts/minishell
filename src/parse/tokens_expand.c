@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:20:03 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/12 18:45:19 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/16 08:22:18 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "shell.h"
 #include "parse.h"
 #include "str.h"
+#include "error.h"
 #include <stdio.h>
 
 static BOOL	_tokens_expand(
@@ -33,23 +34,23 @@ static BOOL	token_expand_variables(
 				t_tokens *tokens,
 				const t_env *env);
 
-BOOL	tokens_expand(t_tokens **self, const t_env *env)
+int	tokens_expand(t_tokens **self, const t_env *env)
 {
 	t_tokens	*result;
 	t_tokens	*tmp;
 
 	result = vector_with_capacity((*self)->length, sizeof(t_token));
 	if (!result)
-		return (FALSE);
+		return (EXIT_ERRNO);
 	if (!_tokens_expand(*self, result, env))
 	{
 		tokens_free(result);
-		return (FALSE);
+		return (EXIT_ERRNO);
 	}
 	tmp = *self;
 	*self = result;
 	tokens_free(tmp);
-	return (TRUE);
+	return (EXIT_SUCCESS);
 }
 
 static BOOL	_tokens_expand(

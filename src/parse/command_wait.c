@@ -6,18 +6,20 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:00:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 19:08:51 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:05:07 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/wait.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <unistd.h>
 #include "shell.h"
+#include "error.h"
+#include "libft.h"
 #include "command.h"
 
-#define EXIT_CHILD_SIGNALED 200
-#define EXIT_UNREACHABLE 300
+static void	print_error_termsig(int signum);
 
 int	commands_status(t_vector *commands)
 {
@@ -34,18 +36,17 @@ int	commands_status(t_vector *commands)
 	return (command->status);
 }
 
-// TODO: Set status from signal
-///		Waits for the given commands exit status to become available, if it was
-///		executed in a child process.
 void	command_wait(t_command *self)
 {
 	int	status;
-	int	signal;
+	int	signum;
 
 	if (self->pid == 0)
+	{
+		self->status = g_shell.status;
 		return ;
+	}
 	status = 0;
-	self->status = EXIT_UNREACHABLE;
 	if (self->pid > 0)
 	{
 		if (waitpid(self->pid, &status, 0) > 0)
@@ -54,11 +55,19 @@ void	command_wait(t_command *self)
 				self->status = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
 			{
-				signal = WTERMSIG(status);
-				self->status = signal;
+				signum = WTERMSIG(status);
+				print_error_termsig(signum);
+				self->status = EXIT_TERMSIG + signum;
 			}
 		}
 		else
 			printf("\n");
 	}
+}
+
+static void	print_error_termsig(int signum)
+{
+	ft_putstr_fd("Child terminated with signal ", STDERR_FILENO);
+	ft_putnbr_fd(signum, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
 }

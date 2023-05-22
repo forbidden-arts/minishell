@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 08:48:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 13:06:25 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/16 08:21:28 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include "libft.h"
 #include "ft.h"
+#include "error.h"
 #include "builtin.h"
 
 t_builtin_func	builtin_get(char *name)
@@ -45,10 +46,10 @@ int	builtin_exec(t_vector *argv, t_env *env)
 	t_builtin_func	builtin;
 
 	if (argv->length == 0)
-		return (ERR_NOT_FOUND);
+		return (EXIT_NOT_FOUND);
 	name = *(char **)vector_get(argv, 0);
 	builtin = builtin_get(name);
 	if (!builtin)
-		return (ERR_NOT_FOUND);
+		return (EXIT_NOT_FOUND);
 	return (builtin(argv, env));
 }

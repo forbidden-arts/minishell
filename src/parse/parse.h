@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:14:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 19:07:05 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:08:42 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define CHARSET_DELIM " "
 # define CHARSET_QUOT_DELIM_META "\'\" |<>"
 # define CHARSET_DELIM_META " |<>"
-# define CHARSET_META "|<>()"
+# define CHARSET_META "|<>"
 
 # include <fcntl.h>
 # include "bool.h"
@@ -59,17 +59,13 @@ typedef struct s_tokens_iter
 	size_t		index;
 }	t_tokens_iter;
 
-///			Constructs a collection of tokens from a command line. The returned
-///			value must be freed with `tokens_free`.
-///
-///			@param line Non-null command line.
-///
-///			@return A collection of tokens or NULL on error.
-t_tokens	*tokenize(const char *line);
+typedef struct s_parser
+{
+	t_tokens	*tokens;
+	t_vector	*commands;
+}	t_parser;
 
-///			Frees the collection.
-///
-///			@param tokens The collection to be freed.
+int			tokenize(const char *line, t_tokens **tokens);
 void		tokens_free(t_tokens *tokens);
 
 ///			Initializes the iterator.
@@ -93,12 +89,12 @@ t_token		token_from_word(t_word word);
 size_t		wordspan(const char *input);
 /* Token internals */
 
-BOOL		read_word(const char *input, size_t *index, t_token *token);
-BOOL		read_operator(const char *input, size_t *index, t_token *token);
+int			read_word(const char *input, size_t *index, t_token *token);
+int			read_operator(const char *input, size_t *index, t_token *token);
 
-BOOL		tokens_expand(t_tokens **self, const t_env *env);
+int			tokens_expand(t_tokens **self, const t_env *env);
 t_tokens	*token_filenames(const char *pattern);
-BOOL		tokens_validate(const t_tokens *tokens);
+int			tokens_validate(const t_tokens *tokens);
 
 t_word		word_expand_vars(
 				const t_word self,
@@ -109,5 +105,9 @@ t_word		word_expand_vars(
 void		token_debug(t_token *token);
 // FIXME: Remove debug function
 void		tokens_debug(t_vector *tokens);
+
+void		parser_free(t_parser *self);
+t_vector	*parser_commands(t_parser *self);
+int			parse(const char *line, const t_env *env, t_vector **commands);
 
 #endif
