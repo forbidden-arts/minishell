@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 15:14:04 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 03:05:46 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:09:20 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,11 @@ static int	heredoc(const char *delim)
 			break ;
 		write(io[1], line, ft_strlen(line));
 		write(io[1], "\n", 1);
+		free(line);
 		line = readline("> ");
 	}
+	if (line)
+		free(line);
 	g_shell.eof = FALSE;
 	close(io[1]);
 	return (io[0]);
