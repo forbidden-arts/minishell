@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/22 15:57:47 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:20:38 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ t_line	prompt(const t_termios *termios_state)
 	return (line);
 }
 
-void	_run(const char *line, t_env *env, t_vector *commands)
+void	_run(const char *line, t_env *env, t_vector **commands)
 {
 	add_history(line);
-	g_shell.status = parse(line, env, &commands);
+	g_shell.status = parse(line, env, commands);
 	if (g_shell.status == EXIT_EMPTY)
 	{
 		g_shell.status = EXIT_SUCCESS;
@@ -64,8 +64,8 @@ void	_run(const char *line, t_env *env, t_vector *commands)
 	}
 	if (g_shell.status != EXIT_SUCCESS)
 		return ;
-	commands_exec(commands, env);
-	g_shell.status = commands_status(commands);
+	commands_exec(*commands, env);
+	g_shell.status = commands_status(*commands);
 }
 
 void	run(const char *line, t_env *env)
@@ -73,7 +73,7 @@ void	run(const char *line, t_env *env)
 	t_vector	*commands;
 
 	commands = NULL;
-	_run(line, env, commands);
+	_run(line, env, &commands);
 	commands_free(commands);
 }
 
