@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:14:36 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/16 06:15:26 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:22:40 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	tokenize(const char *line, t_tokens **tokens)
 	if (status != EXIT_SUCCESS)
 	{
 		tokens_free(*tokens);
+		*tokens = NULL;
 		return (status);
 	}
 	return (EXIT_SUCCESS);

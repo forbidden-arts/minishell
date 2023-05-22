@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/16 08:18:51 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:57:47 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,28 @@ t_line	prompt(const t_termios *termios_state)
 	return (line);
 }
 
-// TODO: Does this function need a return value? Do something if exec fails?
-BOOL	run(const char *line, t_env *env)
+void	_run(const char *line, t_env *env, t_vector *commands)
+{
+	add_history(line);
+	g_shell.status = parse(line, env, &commands);
+	if (g_shell.status == EXIT_EMPTY)
+	{
+		g_shell.status = EXIT_SUCCESS;
+		return ;
+	}
+	if (g_shell.status != EXIT_SUCCESS)
+		return ;
+	commands_exec(commands, env);
+	g_shell.status = commands_status(commands);
+}
+
+void	run(const char *line, t_env *env)
 {
 	t_vector	*commands;
 
-	add_history(line);
-	g_shell.status = parse(line, env, &commands);
-	if (g_shell.status != EXIT_SUCCESS)
-		return (FALSE);
-	if (!commands)
-		return (FALSE);
-	if (commands_exec(commands, env))
-		g_shell.status = commands_status(commands);
+	commands = NULL;
+	_run(line, env, commands);
 	commands_free(commands);
-	return (TRUE);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -87,6 +94,8 @@ int	main(int argc, char **argv, char **envp)
 		if (line.is_empty)
 			continue ;
 		run(line.inner, state.env);
+		if (g_shell.status & EXIT_PRINT_FLAG)
+			print_error(g_shell.status);
 		free(line.inner);
 		if (g_shell.status & EXIT_FATAL)
 			break ;

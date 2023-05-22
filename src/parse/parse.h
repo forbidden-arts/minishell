@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:14:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/16 06:16:51 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:08:42 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define CHARSET_DELIM " "
 # define CHARSET_QUOT_DELIM_META "\'\" |<>"
 # define CHARSET_DELIM_META " |<>"
-# define CHARSET_META "|<>()"
+# define CHARSET_META "|<>"
 
 # include <fcntl.h>
 # include "bool.h"

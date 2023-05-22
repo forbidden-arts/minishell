@@ -6,16 +6,18 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:59:23 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 21:34:59 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:58:42 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include "libft.h"
+#include "error.h"
 #include "command.h"
 
 static BOOL	_error_cmd_not_found(const char *name);
+static BOOL	_error_errno(void);
 
 void	command_redirect(t_command *self)
 {
@@ -41,10 +43,7 @@ BOOL	command_resolve(t_command *self, const t_env *env)
 	{
 		path = path_from_env(env);
 		if (!path)
-		{
-			perror("minishell");
-			return (FALSE);
-		}
+			return (_error_errno());
 		self->name.value = path_which(path, name);
 		path_free(path);
 		if (!self->name.value)
@@ -52,10 +51,7 @@ BOOL	command_resolve(t_command *self, const t_env *env)
 		return (TRUE);
 	}
 	if (access(self->name.value, X_OK))
-	{
-		perror("minishell");
-		return (FALSE);
-	}
+		return (_error_errno());
 	return (TRUE);
 }
 
@@ -64,5 +60,13 @@ static BOOL	_error_cmd_not_found(const char *name)
 	write(STDERR_FILENO, "minishell: ", 11);
 	write(STDERR_FILENO, name, ft_strlen(name));
 	write(STDERR_FILENO, ": command not found\n", 20);
+	g_shell.status = EXIT_NOT_FOUND;
+	return (FALSE);
+}
+
+static BOOL	_error_errno(void)
+{
+	perror("minishell");
+	g_shell.status = EXIT_NO_ACCESS;
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 07:13:13 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/16 06:15:35 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:55:34 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	command_operator(
 int	command_name(t_command *self)
 {
 	if (self->args->length < 1)
-		return (EXIT_SYNTAX);
+		return (EXIT_EMPTY);
 	self->name.value = *(char **)vector_get(self->args, 0);
 	self->name.is_path = TRUE;
 	if (ft_strchr(self->name.value, '/'))

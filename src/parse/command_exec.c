@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 07:49:08 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 19:03:44 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:49:03 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,30 +83,29 @@ BOOL	command_exec_builtin(t_command *self, t_env *env)
 	return (FALSE);
 }
 
-BOOL	commands_exec(t_vector *commands, t_env *env)
+// TODO: Ret void
+void	commands_exec(t_vector *commands, t_env *env)
 {
 	size_t		index;
 	t_command	*command;
-	BOOL		ok;
 
-	ok = TRUE;
 	index = 0;
 	if (commands->length == 1)
 	{
 		command = vector_get(commands, 0);
 		if (command->builtin)
-			return (command_run_builtin(command, env));
+			command_run_builtin(command, env);
 		else
-			return (command_exec_external(command, env));
+			command_exec_external(command, env);
+		return ;
 	}
-	while (index < commands->length && ok)
+	while (index < commands->length)
 	{
 		command = vector_get(commands, index);
 		if (command->builtin)
-			ok = command_exec_builtin(command, env);
+			command_exec_builtin(command, env);
 		else
-			ok = command_exec_external(command, env);
+			command_exec_external(command, env);
 		index++;
 	}
-	return (ok);
 }
