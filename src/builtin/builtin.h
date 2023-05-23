@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:38 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/23 13:44:21 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:54:53 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_builtin
 }	t_builtin;
 
 t_builtin_func	builtin_get(char *name);
-int				builtin_exec(t_vector *argv, t_env *env);
 int				builtin_echo(t_vector *argv, t_env *env);
 int				builtin_cd(t_vector *argv, t_env *env);
 int				builtin_pwd(t_vector *argv, t_env *env);

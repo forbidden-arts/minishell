@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 08:48:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/16 08:21:28 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:54:33 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,4 @@ t_builtin_func	builtin_get(char *name)
 		idx++;
 	}
 	return (NULL);
-}
-
-int	builtin_exec(t_vector *argv, t_env *env)
-{
-	char			*name;
-	t_builtin_func	builtin;
-
-	if (argv->length == 0)
-		return (EXIT_NOT_FOUND);
-	name = *(char **)vector_get(argv, 0);
-	builtin = builtin_get(name);
-	if (!builtin)
-		return (EXIT_NOT_FOUND);
-	return (builtin(argv, env));
 }
