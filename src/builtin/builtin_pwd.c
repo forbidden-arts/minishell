@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:34:52 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/11 13:00:56 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:44:35 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ int	builtin_pwd(t_vector *argv, t_env *env)
 		return (EXIT_FAILURE);
 	}
 	printf("%s\n", cwd);
-	return (OK);
+	return (EXIT_SUCCESS);
 }

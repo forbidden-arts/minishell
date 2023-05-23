@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 17:09:09 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 13:04:58 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:48:00 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static int	_builtin_unset(char *name, t_env *env)
 		write(STDERR_FILENO, "minishell: unset: `", 20);
 		write(STDERR_FILENO, name, ft_strlen(name));
 		write(STDERR_FILENO, "': not a valid identifier\n", 26);
-		return (ERR_INVALID_ARGS);
+		return (EXIT_FAILURE);
 	}
 	env_unset(env, name);
-	return (OK);
+	return (EXIT_SUCCESS);
 }

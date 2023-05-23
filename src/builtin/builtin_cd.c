@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:38:38 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/11 13:05:54 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:48:41 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	_builtin_cd(const char *to, t_env *env)
 		return (_error());
 	if (!env_set(env, "PWD", getcwd(buffer, PATH_BUFFER_SIZE)))
 		return (_error());
-	return (OK);
+	return (EXIT_SUCCESS);
 }
 
 int	builtin_cd(t_vector *argv, t_env *env)

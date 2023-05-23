@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:09:05 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/11 13:00:01 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:43:05 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	builtin_echo(t_vector *argv, t_env *env)
 	if (argv->length < 2)
 	{
 		printf("\n");
-		return (OK);
+		return (EXIT_SUCCESS);
 	}
 	if (!ft_strncmp(*(char **)vector_get(argv, 1), "-n", 2))
 	{
@@ -39,5 +39,5 @@ int	builtin_echo(t_vector *argv, t_env *env)
 		printf(" %s", *(char **)vector_get(argv, index++));
 	if (!n_flag)
 		printf("\n");
-	return (OK);
+	return (EXIT_SUCCESS);
 }
