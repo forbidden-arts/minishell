@@ -6,15 +6,12 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 08:48:34 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/23 13:54:33 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:28:21 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
-#include <stdio.h>
 #include "libft.h"
-#include "ft.h"
-#include "error.h"
 #include "builtin.h"
 
 t_builtin_func	builtin_get(char *name)

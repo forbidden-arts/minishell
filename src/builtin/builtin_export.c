@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:43:40 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/23 13:47:40 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:26:18 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <stdlib.h>
 #include "ft.h"
 #include "env.h"
-#include "shell.h"
 #include "builtin.h"
 
 static int	_builtin_export(t_env *env, char *var);

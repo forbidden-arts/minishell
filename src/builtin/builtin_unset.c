@@ -6,16 +6,14 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 17:09:09 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/23 13:48:00 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:27:47 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <unistd.h>
-#include "ft.h"
 #include "libft.h"
 #include "env.h"
-#include "shell.h"
 #include "builtin.h"
 
 static int	_builtin_unset(char *name, t_env *env);

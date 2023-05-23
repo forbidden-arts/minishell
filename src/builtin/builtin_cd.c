@@ -6,16 +6,15 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:38:38 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/23 14:04:13 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:22:09 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include "libft.h"
-#include "builtin.h"
-#include "ft.h"
 #include "env.h"
+#include "builtin.h"
 
 static int	_error(void)
 {
