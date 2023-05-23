@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:38:38 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/23 13:48:41 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:04:13 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static int	_error(void)
 {
-	perror ("minishell: cd");
+	perror("minishell: cd");
 	return (EXIT_FAILURE);
 }
 
