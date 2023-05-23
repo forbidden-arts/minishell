@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:46:12 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 13:03:23 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:38:14 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ ssize_t		env_position(const t_env *env, t_env_match *match);
 BOOL		is_name(const char *name, size_t limit);
 
 // PATH
-// TODO: paths
 t_path		*path_from_env(const t_env *env);
 void		path_free(t_path *self);
 char		*path_which(t_path *self, const char *name);

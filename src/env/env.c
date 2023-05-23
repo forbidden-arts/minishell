@@ -6,12 +6,11 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:46:05 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 11:35:19 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:36:15 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "shell.h"
 #include "env.h"
 
 static BOOL	_env_init(t_env *env, char **envp);
