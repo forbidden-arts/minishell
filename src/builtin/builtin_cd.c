@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:38:38 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/23 14:22:09 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:29:58 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@
 #include "env.h"
 #include "builtin.h"
 
-static int	_error(void)
-{
-	perror("minishell: cd");
-	return (EXIT_FAILURE);
-}
+static int	_error(void);
 
 static const char	*parse_path(t_vector *argv, const t_env *env)
 {
@@ -65,4 +61,10 @@ int	builtin_cd(t_vector *argv, t_env *env)
 			printf("%s\n", to);
 	}
 	return (_builtin_cd(to, env));
+}
+
+static int	_error(void)
+{
+	perror("minishell: cd");
+	return (EXIT_FAILURE);
 }
