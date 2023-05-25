@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 01:07:29 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 19:16:59 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:10:42 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <readline/readline.h>
-#include <readline/history.h>
 #include <signal.h>
-#include "shell.h"
-#include "command.h"
 #include <sys/ioctl.h>
+#include "shell.h"
 
 t_shell	g_shell;
 
