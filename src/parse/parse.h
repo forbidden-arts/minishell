@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:14:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/25 13:39:11 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:42:07 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 # define CHARSET_DELIM_META " |<>"
 # define CHARSET_META "|<>"
 
-# include <fcntl.h>
 # include "bool.h"
-# include "builtin.h"
+# include "env.h"
 # include "vector.h"
 
 typedef enum e_token_type
@@ -100,11 +99,6 @@ t_word		word_expand_vars(
 				const t_word self,
 				BOOL ignore_quotes,
 				const t_env *env);
-
-// FIXME: Remove debug function
-void		token_debug(t_token *token);
-// FIXME: Remove debug function
-void		tokens_debug(t_vector *tokens);
 
 t_vector	*parser_commands(t_parser *self);
 int			parse(const char *line, const t_env *env, t_vector **commands);
