@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/25 14:03:35 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:05:52 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ void	_run(
 	}
 	if (g_shell.status != EXIT_SUCCESS)
 		return ;
+	g_shell.is_waiting = TRUE;
 	commands_exec(*commands, env);
 	g_shell.status = commands_status(*commands);
+	g_shell.is_waiting = FALSE;
 }
 
 void	run(const char *line, t_env *env, t_termios *termios_state)
