@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:09:05 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/11 13:00:01 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:16:10 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	builtin_echo(t_vector *argv, t_env *env)
 		printf("\n");
 		return (OK);
 	}
-	if (!ft_strncmp(*(char **)vector_get(argv, 1), "-n", 2))
+	if (!ft_strncmp(*(char **)vector_get(argv, 1), "-n", 3))
 	{
 		n_flag = TRUE;
 		index++;
