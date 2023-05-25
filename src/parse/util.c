@@ -6,14 +6,12 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 14:55:17 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 18:57:47 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:50:16 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
-#include "vector.h"
-#include "env.h"
 #include "util.h"
 
 void	close_safe(int *fd)

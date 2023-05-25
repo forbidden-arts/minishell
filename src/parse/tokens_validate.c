@@ -6,12 +6,11 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 04:00:17 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/22 12:54:26 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:48:53 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "shell.h"
 #include "error.h"
 #include "parse.h"
 
