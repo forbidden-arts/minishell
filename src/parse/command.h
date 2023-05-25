@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 03:47:22 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/22 15:42:14 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:49:21 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define COMMAND_H
 
 # include "vector.h"
+# include "env.h"
 # include "parse.h"
 # include "builtin.h"
 
