@@ -37,7 +37,6 @@ ft_strspn.c 		\
 ft_strcspn.c 		\
 ft_strtonum.c 		\
 ft_strtok.c 		\
-ft_strpbrk.c		\
 vector.c 			\
 vector_remove.c 	\
 vector_reserve.c	\
