@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:24:07 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 11:37:57 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:17:44 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ static BOOL	cmp(void *item, void *m)
 	t_env_match	*match;
 
 	match = (t_env_match *)m;
-	return (ft_strncmp(*(char **)item, match->name, match->name_length) == 0);
+	return (
+		ft_strncmp(*(char **)item,
+			match->name,
+			match->name_length + 1)
+		== 0);
 }
 
 BOOL	is_name(const char *name, size_t limit)

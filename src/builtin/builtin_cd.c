@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:38:38 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/11 13:05:54 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:16:04 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	builtin_cd(t_vector *argv, t_env *env)
 		write(STDERR_FILENO, "minishell: cd: HOME not set\n", 28);
 		return (EXIT_FAILURE);
 	}
-	if (ft_strncmp(to, "-", 1) == 0)
+	if (ft_strncmp(to, "-", 2) == 0)
 	{
 		to = env_get(env, "OLDPWD");
 		if (to)
