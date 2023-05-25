@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:38:38 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/23 14:29:58 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:29:39 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	builtin_cd(t_vector *argv, t_env *env)
 		write(STDERR_FILENO, "minishell: cd: HOME not set\n", 28);
 		return (EXIT_FAILURE);
 	}
-	if (ft_strncmp(to, "-", 1) == 0)
+	if (ft_strncmp(to, "-", 2) == 0)
 	{
 		to = env_get(env, "OLDPWD");
 		if (to)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_redirect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 15:14:04 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/22 13:09:20 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:18:04 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	heredoc(const char *delim)
 	line = readline("> ");
 	while (line && !g_shell.eof)
 	{
-		if (ft_strncmp(line, delim, ft_strlen(delim)) == 0)
+		if (ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0)
 			break ;
 		write(io[1], line, ft_strlen(line));
 		write(io[1], "\n", 1);
