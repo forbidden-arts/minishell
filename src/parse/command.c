@@ -6,14 +6,11 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 04:28:58 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 21:33:15 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:34:29 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <unistd.h>
-#include "libft.h"
-#include "parse.h"
 #include "util.h"
 #include "command.h"
 

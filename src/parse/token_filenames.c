@@ -6,17 +6,14 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 11:18:42 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/11 13:16:25 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:43:58 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dirent.h>
 #include <stdio.h>
 #include "libft.h"
-#include "main.h"
-#include "vector.h"
 #include "parse.h"
-#include "bool.h"
 
 static t_vector	*files_try_push(
 					t_tokens *matches,

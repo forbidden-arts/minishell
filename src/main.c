@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/25 13:25:59 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/25 14:13:42 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,10 @@
 #include <readline/history.h>
 #include <stdlib.h>
 #include "builtin.h"
-#include "libft.h"
-#include "ft.h"
 #include "shell.h"
-#include "vector.h"
-#include "bool.h"
-#include "parse.h"
 #include "command.h"
-#include <termios.h>
-#include <signal.h>
-#include <unistd.h>
 #include "error.h"
 #include "main.h"
-
-typedef struct s_line
-{
-	char	*inner;
-	BOOL	is_eof;
-	BOOL	is_empty;
-}	t_line;
 
 t_line	prompt(const t_termios *termios_state)
 {
@@ -68,8 +53,10 @@ void	_run(
 	}
 	if (g_shell.status != EXIT_SUCCESS)
 		return ;
+	g_shell.is_waiting = TRUE;
 	commands_exec(*commands, env);
 	g_shell.status = commands_status(*commands);
+	g_shell.is_waiting = FALSE;
 }
 
 void	run(const char *line, t_env *env, t_termios *termios_state)

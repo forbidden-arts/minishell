@@ -6,17 +6,42 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 07:13:13 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/22 14:55:34 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:19:45 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
 #include "libft.h"
 #include "error.h"
 #include "command.h"
 
-void	command_operator(
+static int	command_name(t_command *self);
+static int	command_init(t_command *self, t_tokens_iter *tokens);
+static void	command_operator(
+				t_command *self,
+				t_operator operator,
+				t_tokens_iter *iter);
+
+int	commands_init(t_tokens *tokens, t_vector *commands)
+{
+	t_tokens_iter	iter;
+	size_t			index;
+	t_command		*command;
+	int				status;
+
+	index = 0;
+	tokens_iter(&iter, tokens);
+	while (index < commands->length)
+	{
+		command = vector_get(commands, index);
+		status = command_init(command, &iter);
+		if (status != EXIT_SUCCESS)
+			return (status);
+		index++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+static void	command_operator(
 	t_command *self,
 	t_operator operator,
 	t_tokens_iter *iter)
@@ -34,7 +59,7 @@ void	command_operator(
 		command_redirect_output(self, token->word, TRUE);
 }
 
-int	command_name(t_command *self)
+static int	command_name(t_command *self)
 {
 	if (self->args->length < 1)
 		return (EXIT_EMPTY);
@@ -47,7 +72,7 @@ int	command_name(t_command *self)
 	return (EXIT_SUCCESS);
 }
 
-int	command_init(t_command *self, t_tokens_iter *tokens)
+static int	command_init(t_command *self, t_tokens_iter *tokens)
 {
 	t_token	*token;
 	char	*arg;
@@ -73,24 +98,4 @@ int	command_init(t_command *self, t_tokens_iter *tokens)
 		token = tokens_next(tokens);
 	}
 	return (command_name(self));
-}
-
-int	commands_init(t_tokens *tokens, t_vector *commands)
-{
-	t_tokens_iter	iter;
-	size_t			index;
-	t_command		*command;
-	int				status;
-
-	index = 0;
-	tokens_iter(&iter, tokens);
-	while (index < commands->length)
-	{
-		command = vector_get(commands, index);
-		status = command_init(command, &iter);
-		if (status != EXIT_SUCCESS)
-			return (status);
-		index++;
-	}
-	return (EXIT_SUCCESS);
 }

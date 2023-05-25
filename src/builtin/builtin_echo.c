@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:09:05 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/25 12:16:10 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/25 12:30:05 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdio.h>
 #include "libft.h"
 #include "builtin.h"
@@ -26,7 +25,7 @@ int	builtin_echo(t_vector *argv, t_env *env)
 	if (argv->length < 2)
 	{
 		printf("\n");
-		return (OK);
+		return (EXIT_SUCCESS);
 	}
 	if (!ft_strncmp(*(char **)vector_get(argv, 1), "-n", 3))
 	{
@@ -39,5 +38,5 @@ int	builtin_echo(t_vector *argv, t_env *env)
 		printf(" %s", *(char **)vector_get(argv, index++));
 	if (!n_flag)
 		printf("\n");
-	return (OK);
+	return (EXIT_SUCCESS);
 }

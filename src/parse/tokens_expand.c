@@ -6,19 +6,13 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:20:03 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/16 08:22:18 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:47:09 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.h"
 #include "libft.h"
-#include "ft.h"
-#include "env.h"
-#include "shell.h"
-#include "parse.h"
-#include "str.h"
 #include "error.h"
-#include <stdio.h>
+#include "parse.h"
 
 static BOOL	_tokens_expand(
 				const t_tokens *self,

@@ -37,12 +37,10 @@ ft_strspn.c 		\
 ft_strcspn.c 		\
 ft_strtonum.c 		\
 ft_strtok.c 		\
-ft_strpbrk.c		\
 vector.c 			\
 vector_remove.c 	\
 vector_reserve.c	\
 vector_position.c 	\
-vector_clone.c		\
 vector_extend.c		\
 shell.c 			\
 env.c 				\

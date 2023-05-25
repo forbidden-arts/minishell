@@ -6,16 +6,16 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:43:40 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/12 18:41:39 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:26:18 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "ft.h"
 #include "env.h"
-#include "shell.h"
 #include "builtin.h"
 
 static int	_builtin_export(t_env *env, char *var);
@@ -28,7 +28,7 @@ int	builtin_export(t_vector *argv, t_env *env)
 
 	if (argv->length <= 1)
 		return (builtin_env(argv, env));
-	status = OK;
+	status = EXIT_SUCCESS;
 	idx = 1;
 	while (idx < argv->length)
 	{
@@ -48,15 +48,15 @@ static int	_builtin_export(t_env *env, char *var)
 		write(STDERR_FILENO, "minishell: export: `", 20);
 		write(STDERR_FILENO, var, name_length);
 		write(STDERR_FILENO, "': not a valid identifier\n", 26);
-		return (ERR_INVALID_ARGS);
+		return (EXIT_FAILURE);
 	}
 	if (!var[name_length])
-		return (ERR_INVALID_ARGS);
+		return (EXIT_FAILURE);
 	var[name_length] = '\0';
 	if (!env_set(env, var, &var[name_length + 1]))
 	{
 		perror("minishell: export");
-		return (ERR_SYSTEM);
+		return (EXIT_FAILURE);
 	}
-	return (OK);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:00:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/22 16:05:07 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:32:52 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "shell.h"
 #include "error.h"
 #include "libft.h"
 #include "command.h"
@@ -41,11 +40,6 @@ void	command_wait(t_command *self)
 	int	status;
 	int	signum;
 
-	if (self->pid == 0)
-	{
-		self->status = g_shell.status;
-		return ;
-	}
 	status = 0;
 	if (self->pid > 0)
 	{

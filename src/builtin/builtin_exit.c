@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:27:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/16 08:19:40 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:30:23 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,8 @@
 #include "error.h"
 #include "builtin.h"
 
-static int	int_max(void)
-{
-	return ((int)(((unsigned int)-1) / 2));
-}
-
-static int	int_min(void)
-{
-	return ((int)(((((unsigned int)-1) / 2) + 1)));
-}
+static int	int_max(void);
+static int	int_min(void);
 
 int	builtin_exit(t_vector *argv, t_env *env)
 {
@@ -52,4 +45,14 @@ int	builtin_exit(t_vector *argv, t_env *env)
 		}
 	}
 	return (exit_code | EXIT_FATAL);
+}
+
+static int	int_max(void)
+{
+	return ((int)(((unsigned int)-1) / 2));
+}
+
+static int	int_min(void)
+{
+	return ((int)(((((unsigned int)-1) / 2) + 1)));
 }

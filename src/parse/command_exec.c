@@ -6,43 +6,29 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 07:49:08 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/22 15:49:03 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:50:10 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
-#include "libft.h"
-#include "env.h"
-#include "shell.h"
+#include <stdlib.h>
 #include "util.h"
 #include "command.h"
 
-static BOOL	_command_exec_external(t_command *self, char **argv, char **envp)
-{
-	struct sigaction	action;
+static void	command_exec_builtin(t_command *self, t_env *env);
+static void	command_exec_external(t_command *self, const t_env *env);
+static void	_command_exec_external(t_command *self, char **argv, char **envp);
 
-	if (!argv || !envp)
-		return (FALSE);
-	action.sa_handler = SIG_DFL;
-	action.sa_flags = 0;
-	sigemptyset(&action.sa_mask);
-	sigaction(SIGQUIT, &action, NULL);
-	command_redirect(self);
-	execve(self->name.value, argv, envp);
-	return (FALSE);
-}
-
-// TODO: Return values
-int	command_exec_external(t_command *self, const t_env *env)
+void	command_exec_external(t_command *self, const t_env *env)
 {
 	pid_t		pid;
 	char		**argv;
 	char		**envp;
 
 	if (!command_resolve(self, env))
-		return (FALSE);
+		return ;
 	envp = envp_from_env(env);
 	argv = argv_from_vector(&self->args);
 	pid = fork();
@@ -55,13 +41,28 @@ int	command_exec_external(t_command *self, const t_env *env)
 	if (pid > 0)
 	{
 		self->pid = pid;
-		return (TRUE);
+		return ;
 	}
 	perror("minishell");
-	return (FALSE);
+	return ;
 }
 
-BOOL	command_exec_builtin(t_command *self, t_env *env)
+static void	_command_exec_external(t_command *self, char **argv, char **envp)
+{
+	struct sigaction	action;
+
+	if (!argv || !envp)
+		return ;
+	action.sa_handler = SIG_DFL;
+	action.sa_flags = 0;
+	sigemptyset(&action.sa_mask);
+	sigaction(SIGQUIT, &action, NULL);
+	command_redirect(self);
+	execve(self->name.value, argv, envp);
+	return ;
+}
+
+void	command_exec_builtin(t_command *self, t_env *env)
 {
 	pid_t	pid;
 
@@ -71,7 +72,7 @@ BOOL	command_exec_builtin(t_command *self, t_env *env)
 		self->pid = pid;
 		close_safe(&self->input_fd);
 		close_safe(&self->output_fd);
-		return (TRUE);
+		return ;
 	}
 	if (pid == 0)
 	{
@@ -80,10 +81,8 @@ BOOL	command_exec_builtin(t_command *self, t_env *env)
 		exit(self->status);
 	}
 	perror("minishell");
-	return (FALSE);
 }
 
-// TODO: Ret void
 void	commands_exec(t_vector *commands, t_env *env)
 {
 	size_t		index;

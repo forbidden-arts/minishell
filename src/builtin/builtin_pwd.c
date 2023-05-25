@@ -6,13 +6,13 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:34:52 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/11 13:00:56 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:26:57 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
-#include "libft.h"
+#include <stdlib.h>
 #include "builtin.h"
 
 int	builtin_pwd(t_vector *argv, t_env *env)
@@ -27,5 +27,5 @@ int	builtin_pwd(t_vector *argv, t_env *env)
 		return (EXIT_FAILURE);
 	}
 	printf("%s\n", cwd);
-	return (OK);
+	return (EXIT_SUCCESS);
 }

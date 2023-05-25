@@ -3,25 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:38:38 by dpalmer           #+#    #+#             */
-/*   Updated: 2023/05/25 12:16:04 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/25 12:29:39 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include "libft.h"
-#include "builtin.h"
-#include "ft.h"
 #include "env.h"
+#include "builtin.h"
 
-static int	_error(void)
-{
-	perror ("minishell: cd");
-	return (EXIT_FAILURE);
-}
+static int	_error(void);
 
 static const char	*parse_path(t_vector *argv, const t_env *env)
 {
@@ -46,7 +41,7 @@ static int	_builtin_cd(const char *to, t_env *env)
 		return (_error());
 	if (!env_set(env, "PWD", getcwd(buffer, PATH_BUFFER_SIZE)))
 		return (_error());
-	return (OK);
+	return (EXIT_SUCCESS);
 }
 
 int	builtin_cd(t_vector *argv, t_env *env)
@@ -66,4 +61,10 @@ int	builtin_cd(t_vector *argv, t_env *env)
 			printf("%s\n", to);
 	}
 	return (_builtin_cd(to, env));
+}
+
+static int	_error(void)
+{
+	perror("minishell: cd");
+	return (EXIT_FAILURE);
 }

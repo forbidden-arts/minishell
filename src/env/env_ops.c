@@ -6,12 +6,11 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:27:24 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/11 13:03:41 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:35:54 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "shell.h"
 #include "env.h"
 
 const char	*env_get(const t_env *env, const char *name)

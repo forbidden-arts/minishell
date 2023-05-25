@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:59:23 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/22 15:58:42 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:49:05 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include "libft.h"
 #include "error.h"
+#include "shell.h"
 #include "command.h"
 
 static BOOL	_error_cmd_not_found(const char *name);
