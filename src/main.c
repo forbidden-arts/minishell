@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/22 16:20:38 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:25:59 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_line	prompt(const t_termios *termios_state)
 	line = (t_line){0};
 	termios_echoctl_disable(termios_state);
 	line.inner = readline("minishell> ");
-	termios_echoctl_reset(termios_state);
 	if (!line.inner)
 		line.is_eof = TRUE;
 	else if (!*(line.inner))
@@ -53,10 +52,15 @@ t_line	prompt(const t_termios *termios_state)
 	return (line);
 }
 
-void	_run(const char *line, t_env *env, t_vector **commands)
+void	_run(
+	const char *line,
+	t_env *env,
+	t_vector **commands,
+	t_termios *termios_state)
 {
 	add_history(line);
 	g_shell.status = parse(line, env, commands);
+	termios_echoctl_reset(termios_state);
 	if (g_shell.status == EXIT_EMPTY)
 	{
 		g_shell.status = EXIT_SUCCESS;
@@ -68,12 +72,12 @@ void	_run(const char *line, t_env *env, t_vector **commands)
 	g_shell.status = commands_status(*commands);
 }
 
-void	run(const char *line, t_env *env)
+void	run(const char *line, t_env *env, t_termios *termios_state)
 {
 	t_vector	*commands;
 
 	commands = NULL;
-	_run(line, env, &commands);
+	_run(line, env, &commands, termios_state);
 	commands_free(commands);
 }
 
@@ -93,7 +97,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (line.is_empty)
 			continue ;
-		run(line.inner, state.env);
+		run(line.inner, state.env, state.termios_state);
 		if (g_shell.status & EXIT_PRINT_FLAG)
 			print_error(g_shell.status);
 		free(line.inner);

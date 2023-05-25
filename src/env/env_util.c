@@ -6,7 +6,7 @@
 /*   By: dpalmer <dpalmer@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:24:07 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/25 12:17:44 by dpalmer          ###   ########.fr       */
+/*   Updated: 2023/05/25 13:09:43 by dpalmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static BOOL	cmp(void *item, void *m)
 	return (
 		ft_strncmp(*(char **)item,
 			match->name,
-			match->name_length + 1)
+			match->name_length)
 		== 0);
 }
 
