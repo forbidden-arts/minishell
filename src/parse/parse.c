@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 04:07:14 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/16 06:18:00 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:39:34 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,7 @@
 #include "command.h"
 #include "parse.h"
 
-void	parser_free(t_parser *self)
-{
-	if (self->tokens)
-		tokens_free(self->tokens);
-	if (self->commands)
-		commands_free(self->commands);
-	*self = (t_parser){0};
-}
+static void	parser_free(t_parser *self);
 
 t_vector	*parser_commands(t_parser *self)
 {
@@ -51,4 +44,13 @@ int	parse(const char *line, const t_env *env, t_vector **commands)
 		*commands = parser_commands(&parser);
 	parser_free(&parser);
 	return (status);
+}
+
+static void	parser_free(t_parser *self)
+{
+	if (self->tokens)
+		tokens_free(self->tokens);
+	if (self->commands)
+		commands_free(self->commands);
+	*self = (t_parser){0};
 }

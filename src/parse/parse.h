@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:14:19 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/22 16:08:42 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:39:11 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void		token_debug(t_token *token);
 // FIXME: Remove debug function
 void		tokens_debug(t_vector *tokens);
 
-void		parser_free(t_parser *self);
 t_vector	*parser_commands(t_parser *self);
 int			parse(const char *line, const t_env *env, t_vector **commands);
 
