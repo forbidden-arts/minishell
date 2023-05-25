@@ -41,7 +41,6 @@ vector.c 			\
 vector_remove.c 	\
 vector_reserve.c	\
 vector_position.c 	\
-vector_clone.c		\
 vector_extend.c		\
 shell.c 			\
 env.c 				\

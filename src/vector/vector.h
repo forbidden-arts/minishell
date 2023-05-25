@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:49:14 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/10 22:14:51 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:55:29 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,6 @@ void		vector_swap_remove(t_vector *self, size_t index);
 ///			@warning This function is unsafe when used with unreasonably large
 ///			vectors.
 BOOL		vector_reserve(t_vector *self, size_t additional_capacity);
-
-///			Clones a vector.
-///
-///			@param self Non-null pointer to a vector.
-///
-///			@return The newly created clone or NULL on failure.
-t_vector	*vector_clone(const t_vector *self);
 
 ///			Extends the vector `self` by concatenating it with `other`.
 ///	
