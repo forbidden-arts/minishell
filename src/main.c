@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:10:20 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/22 16:20:38 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:00:22 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,6 @@
 #include <unistd.h>
 #include "error.h"
 #include "main.h"
-
-typedef struct s_line
-{
-	char	*inner;
-	BOOL	is_eof;
-	BOOL	is_empty;
-}	t_line;
 
 t_line	prompt(const t_termios *termios_state)
 {
