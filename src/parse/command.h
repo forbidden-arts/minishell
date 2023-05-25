@@ -6,7 +6,7 @@
 /*   By: tjaasalo <tjaasalo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 03:47:22 by tjaasalo          #+#    #+#             */
-/*   Updated: 2023/05/25 12:49:21 by tjaasalo         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:25:50 by tjaasalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		commands_free(t_vector *self);
 
 int			commands_init(t_tokens *tokens, t_vector *commands);
 void		commands_exec(t_vector *commands, t_env *env);
-BOOL		command_run_builtin(t_command *self, t_env *env);
+void		command_run_builtin(t_command *self, t_env *env);
 void		command_redirect(t_command *self);
 BOOL		command_resolve(t_command *self, const t_env *env);
 
