@@ -46,11 +46,11 @@ Remove everything:
 ```make fclean```
 
 ## 🤡 Usage
-Open up a terminal and run ```./minishell```. Not a ton will change, other than the prompt. But from here, you can execute programs, directly manipulate the environment variables, and do all sorts of crazy things that would normally brick your computer. And it still might if you try hard enough. But try as we might, we were unable to create expensive Mac-branded paperweights.
+Open up a terminal and run ```./minishell```. Not a ton will change, other than the prompt. But from here, you can execute programs, directly manipulate the environment variables, and do all sorts of crazy things that would normally brick your computer. And it still might, if you try hard enough. But during some extensive testing, we were unable to create expensive Mac-branded paperweights. Which is disappointing in a way.
 
 Also, any shenannigans will end when you ```exit```, so be sure to mess up as much as you possibly can while inside.
 
-Oh, ***JUST LIKE BASH***, it will occasionally leak. That's a deficiency in the C Readline library, and we were not going to fix it. It takes a lot of craziness, including being several levels deep and halting stuff to get that result, but just a heads up.
+Oh, ***JUST LIKE BASH***, it will occasionally leak. That's a deficiency in the C Readline library, and we were `not` going to fix it. It takes a lot of craziness, including being several levels deep and halting stuff to get that result, but just a heads up. If you are not a power-user, this entire paragraph is just gibberish, go ahead and ignore it.
 
 ### 📝 License
 Go nuts. If you make a zillion currency units, I would appreciate a coffee.
