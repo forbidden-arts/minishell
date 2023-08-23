@@ -8,7 +8,7 @@
 ## 🤓 Overview
 Ever Wanted to Write Your Own Shell? Me Neither.
 
-In this surprisingly unsexy – yet surprisingly complex - team project, a wildly talented classmate decided to be charitable and take me on as a groupmate. Probably for the karma.
+In this surprisingly unsexy – yet surprisingly complex – team project, a wildly talented classmate decided to be charitable and take me on as a groupmate. Probably for the karma.
 
 Writing a prompt seems pretty simple, right?
 
